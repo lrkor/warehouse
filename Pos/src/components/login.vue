@@ -61,16 +61,20 @@
     margin: 0;
     padding: 0;
   }
+  h1{
+    margin-top: 20px;
+    color: #6dff79;
+  }
 #login{
   overflow: hidden;
-  padding-bottom: 200px;
   width: 100%;
   height: 100%;
-  background-image: url("../assets/img/login.jpg");
+  background-image: url("../assets/img/login1.jpg");
+  background-repeat: no-repeat;
 }
 .login_main{
   width: 500px;
-  height: 500px;
+  height: 200px;
   margin: 200px auto;
 }
 .login_main p{

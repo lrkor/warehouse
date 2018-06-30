@@ -26,8 +26,6 @@ export default {
 }
   .main{
     /*margin-left: 80px;*/
-    background-color: #eff2f7;
-    /*height: 100%;*/
-    overflow: hidden;
+    height: 100%;
   }
 </style>
