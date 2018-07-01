@@ -256,12 +256,16 @@
           },
           //结账
           jiezhang(){
-            this.dialogTableVisible = false;
-            this.shippingArr = [];
-            this.$message({
-              message: '结账成功，感谢你又为店里出了一份力!',
-              type: 'success'
-            });
+            if(this.shippingArr.length==0){
+              this.$message.error('不能空结。老板了解你急切的心情！');
+            }else {
+              this.dialogTableVisible = false;
+              this.shippingArr = [];
+              this.$message({
+                message: '结账成功，感谢你又为店里出了一份力!',
+                type: 'success'
+              });
+            }
           }
         },
 
