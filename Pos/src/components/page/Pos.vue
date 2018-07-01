@@ -6,7 +6,7 @@
         <el-col :span="7" class="pos-order" id="order-list">
           <el-tabs type="border-card">
             <el-tab-pane label="点餐" width="100">
-              <el-table :data="tableData" border style="width: 100%">
+              <el-table :data="pagingtableData" border style="width: 100%">
                 <el-table-column prop="goodsName" label="名称" width="100"></el-table-column>
                 <el-table-column prop="count" label="数量" width="58"></el-table-column>
                 <el-table-column prop="price" label="金额" width="58"></el-table-column>
@@ -19,6 +19,16 @@
               </el-table>
               <div class="totalDiv">
                 <small>数量：</small>{{totalCount}} &nbsp;&nbsp;&nbsp;<small>金额：</small>{{totalMoney}}
+              </div>
+              <div class="block">
+                <el-pagination
+                  layout="prev, pager, next"
+                  :total="total"
+                  @current-change="sizeChange"
+                  @prev-click="sizePrev"
+                  @next-click="sizenext"
+                >
+                </el-pagination>
               </div>
               <div class="div-btn">
                 <el-button type="warning" @click="addCancelled">挂单</el-button>
@@ -163,11 +173,14 @@
     },
     data(){
       return{
+        pan:1,
         dialogTableVisible: false,
+        total:10,
         totalMoney:0,
         totalCount:0,
         a:1,
         tableData:[],
+        pagingtableData:[],
         oftenGoods:[],
         tape0Goods:[],
         tape1Goods:[],
@@ -219,6 +232,23 @@
       document.getElementById('goodsPos').style.color = '#32ff7b';
     },
     methods: {
+      //数组分页输出
+      pagination(pageNo, pageSize, array){
+        var offset = (pageNo - 1) * pageSize;
+        return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
+      },
+      sizeChange(val){
+        this.pan = `${val}`;
+        this.pagingtableData = this.pagination(this.pan,8,this.tableData);
+      },
+      sizePrev(){
+        this.pan--;
+        this.pagingtableData = this.pagination(this.pan,8,this.tableData);
+      },
+      sizenext(){
+        this.pan++;
+        this.pagingtableData = this.pagination(this.pan,8,this.tableData);
+      },
       //添加订单列表的方法
       addOrderList(goods){
         this.totalCount=0; //汇总数量清0
@@ -241,6 +271,11 @@
           this.tableData.push(newGoods);
 
         }
+
+        //将数组进行分页输出
+        this.total = Math.ceil(this.tableData.length/8);
+        this.total = this.total*10;
+        this.pagingtableData = this.pagination(1,8,this.tableData);
 
         //进行数量和价格的汇总计算
         this.tableData.forEach((element) => {
@@ -433,7 +468,5 @@
     padding: 10px;
     border-bottom: 1px solid #e5e9f2;
   }
-  .active{
-    color: #000000;
-  }
+
 </style>
