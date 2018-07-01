@@ -65,6 +65,9 @@
               </template>
             </el-table-column>
           </el-table>
+          <div class="zmoney">
+            总金额：{{totalMoney}}
+          </div>
           <div slot="footer" class="dialog-footer">
             <el-button @click="dialogTableVisible = false">取 消</el-button>
             <el-button type="primary" @click="jiezhang">结 账</el-button>
@@ -82,6 +85,7 @@
       },
         data(){
               return{
+                totalMoney:0,
                 dialogTableVisible: false,
                 hanbao:[
                   {
@@ -104,7 +108,7 @@
                     foodId:3,
                     foodImg:require('../../assets/img/3.jpg'),
                     foodName:'测试3',
-                    price: 18
+                    price: 24
                   },
                 ],
                 naicha:[
@@ -203,7 +207,9 @@
               this.foodList = this.roulei;
             }
           },
+          //加入购物车
           addshippingArr(good) {
+            this.totalMoney=0;
             let isHave=false;
             //判断是否这个商品已经存在于订单列表
             for (let i=0; i<this.shippingArr.length;i++){
@@ -223,11 +229,17 @@
 
             }
 
-            //进行数量和价格的汇总计算
-            // this.tableData.forEach((element) => {
-            //   this.totalCount+=element.count;
-            //   this.totalMoney=this.totalMoney+(element.price*element.count);
-            // });
+            if(this.dialogTableVisible==false){
+              this.$message({
+                message: '加入购物车成功，可在购物车中查看',
+                type: 'success'
+              });
+            }
+
+            // 进行数量和价格的汇总计算
+            this.shippingArr.forEach((element) => {
+              this.totalMoney=this.totalMoney+(element.price*element.count);
+            });
           },
           //查看购物车
           seeGouwu(){
@@ -235,8 +247,12 @@
           },
           //删除单个商品
           delSingleGoods(goods){
+            this.totalMoney=0;
             this.shippingArr=this.shippingArr.filter(o => o.foodId !=goods.foodId);
-            // this.getAllMoney();
+            // 进行数量和价格的汇总计算
+            this.shippingArr.forEach((element) => {
+              this.totalMoney=this.totalMoney+(element.price*element.count);
+            });
           },
           //结账
           jiezhang(){
@@ -385,5 +401,11 @@
   .shopping{
     font-size: 12px;
     margin-left: 10px;
+  }
+  .zmoney{
+    height: 30px;
+    padding-top: 15px;
+    padding-right: 10px;
+    text-align: right;
   }
 </style>
