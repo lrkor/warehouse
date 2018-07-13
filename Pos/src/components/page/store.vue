@@ -16,7 +16,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>个人资料</el-dropdown-item>
               <el-dropdown-item><span @click="seeGouwu">购物车</span></el-dropdown-item>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item><span @click="ckOut">退出登录</span></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -266,6 +266,11 @@
                 type: 'success'
               });
             }
+          },
+
+          //退出登录
+          ckOut(){
+            this.$router.push({ path: '/' });
           }
         },
 

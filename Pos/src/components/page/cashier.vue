@@ -12,7 +12,7 @@
                 <el-table-column align="center" prop="money" label="金额" width="100"></el-table-column>
                 <el-table-column align="center" label="操作" fixed="right">
                   <template slot-scope="scope">
-                    <el-button type="text" size="small" @click="checkDetails(scope.row)">查看详情</el-button>
+                    <el-button type="primary" size="small" @click="checkDetails(scope.row)">查看详情</el-button>
                   </template>
                 </el-table-column>
               </el-table>
