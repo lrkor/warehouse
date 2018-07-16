@@ -72,12 +72,15 @@
   background-image: url("../assets/img/login1.jpg");
   background-repeat: no-repeat;
 }
-.login_main{
+  .login_main{
   width: 500px;
   height: 200px;
   margin: 200px auto;
-}
-.login_main p{
+  }
+  .login_main p{
     margin-top: 20px;
+  }
+  .login_main p span{
+    color: #ffffff;
   }
 </style>

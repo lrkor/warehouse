@@ -287,11 +287,13 @@
       //删除单个商品
       delSingleGoods(goods){
         this.tableData=this.tableData.filter(o => o.goodsId !=goods.goodsId);
+        this.pagingtableData = this.tableData;
         this.getAllMoney();
       },
       //删除所有商品
       delAllGoods() {
         this.tableData = [];
+        this.pagingtableData = this.tableData;
         this.totalCount = 0;
         this.totalMoney = 0;
       },
@@ -346,6 +348,7 @@
         b++;
         this.a = b;
         this.tableData = [];
+        this.pagingtableData = this.tableData;
         this.totalCount = 0;
         this.totalMoney = 0;
       },
