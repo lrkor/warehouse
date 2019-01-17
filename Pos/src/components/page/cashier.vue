@@ -20,7 +20,6 @@
               <div class="totalDiv">
                 <small>总金额：</small>{{totalMoney}}
               </div>
-
             </el-tab-pane>
             <el-tab-pane label="外卖" width="500">
               <el-table :data="deliveryDetails">

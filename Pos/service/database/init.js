@@ -6,7 +6,7 @@ const pool = mysql.createPool({
   database :  'database'
 });
 
-let query = function( sql, values ) {
+exports.query = function( sql, values ) {
   return new Promise(( resolve, reject ) => {
     pool.getConnection(function(err, connection) {
       if (err) {
@@ -26,11 +26,11 @@ let query = function( sql, values ) {
   })
 };
 
-async function getData(sqlString) {
-  let sql = sqlString;
-  let data = await query( sql );
-  console.log(data)
-}
-const query1 = 'SELECT * FROM user WHERE user_name="admin"';
-const query2 = 'SELECT * FROM user';
-getData(query1);
+// async function getData(sqlString) {
+//   let sql = sqlString;
+//   let data = await query( sql );
+//   console.log(data)
+// }
+// const query1 = 'SELECT * FROM user WHERE user_name="lisi"';
+// const query2 = 'SELECT * FROM user';
+// getData(query1);
