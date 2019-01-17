@@ -26,10 +26,11 @@ let query = function( sql, values ) {
   })
 };
 
-async function getData(sql1) {
-  // let sql = 'SELECT * FROM user';
-  let sql = sql1;
+async function getData(sqlString) {
+  let sql = sqlString;
   let data = await query( sql );
   console.log(data)
 }
-getData('SELECT * FROM user');
+const query1 = 'SELECT * FROM user WHERE user_name="admin"';
+const query2 = 'SELECT * FROM user';
+getData(query1);
