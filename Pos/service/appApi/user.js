@@ -2,13 +2,13 @@ const Router = require('koa-router');
 // const mysql = require('mysql');
 let router = new Router();
 
-router.get('/login', async (ctx) => {
-  ctx.body = "这是用户登录页";
-  console.log(1111);
+router.get('/',async(ctx)=>{
+  ctx.body="这是用户操作首页"
 });
 
-router.get('/registered', async (ctx) => {
-  ctx.body = "这是用户注册页"
+router.get('/login',async(ctx)=>{
+  ctx.body="这是用户操作首页";
+  console.log(ctx.query);
 });
 
 module.exports = router;
