@@ -18,6 +18,8 @@
   </div>
 </template>
 <script>
+  import axios from 'axios';
+  import url from '@/serviceAPI.config.js'
   export default {
     data() {
       return {
@@ -31,21 +33,33 @@
     },
     methods:{
       isLogin:function() {
-        if(this.name=='admin' && this.pwd==123){
-          this.$message({
-            message: '登录成功!',
-            type: 'success'
+        console.log(url.login);
+        axios.post(url.login,{
+          firstName: 'Fred',
+          lastName: 'Flintstone'
+        })
+          .then(reponse=>{
+            console.log(reponse)
+          })
+          .catch(error=>{
+            alert('网络错误')
           });
-          this.$router.push({ path: 'Pos' });
-        }else if(this.name=='123' && this.pwd==123){
-          this.$message({
-            message: '登录成功!',
-            type: 'success'
-          });
-          this.$router.push({ path: 'store' });
-        }else {
-          this.$message.error('账号密码不正确');
-        }
+
+        // if(this.name=='admin' && this.pwd==123){
+        //   this.$message({
+        //     message: '登录成功!',
+        //     type: 'success'
+        //   });
+        //   this.$router.push({ path: 'Pos' });
+        // }else if(this.name=='123' && this.pwd==123){
+        //   this.$message({
+        //     message: '登录成功!',
+        //     type: 'success'
+        //   });
+        //   this.$router.push({ path: 'store' });
+        // }else {
+        //   this.$message.error('账号密码不正确');
+        // }
 
       },
       entLogin:function (ev) {
