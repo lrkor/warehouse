@@ -8,7 +8,7 @@ router.get('/',async(ctx)=>{
 
 router.post('/login',async(ctx)=>{
   ctx.body="111";
-  console.log(ctx.query);
+  console.log(ctx.request.body);
 });
 
 module.exports = router;

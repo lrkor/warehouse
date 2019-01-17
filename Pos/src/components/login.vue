@@ -33,7 +33,6 @@
     },
     methods:{
       isLogin:function() {
-        console.log(url.login);
         axios.post(url.login,{
           firstName: 'Fred',
           lastName: 'Flintstone'

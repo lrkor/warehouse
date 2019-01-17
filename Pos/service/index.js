@@ -1,6 +1,11 @@
 const Koa = require('koa');
 const app = new Koa();
 const Router = require('koa-router');
+const bodyParser = require('koa-bodyparser');
+const cors = require('koa2-cors');
+
+app.use(cors());
+app.use(bodyParser());
 
 //引入子路由
 let user = require('./appApi/user.js');
