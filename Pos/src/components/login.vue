@@ -33,26 +33,44 @@
     },
     methods:{
       isLogin:function() {
-        axios.post(url.login,{
-          userName: this.name,
-          password: this.pwd
-        })
-          .then(reponse=>{
-            console.log(reponse.data);
-            let data = reponse.data;
-            if(data.code=='200'){
+        if(this.name==''){
+          this.$message({
+            message: '账号不能不空!',
+            type: 'warning'
+          });
+        }else if(this.pwd==''){
+          this.$message({
+            message: '密码不能为空!',
+            type: 'warning'
+          });
+        } else {
+          axios.post(url.login,{
+            userName: this.name,
+            password: this.pwd
+          })
+            .then(reponse=>{
+              let data = reponse.data;
+              if(data.code=='200'){
                 this.$message({
                   message: '登录成功!',
                   type: 'success'
                 });
                 this.$router.push({ path: 'Pos' });
-            }else {
-              alert(data.message)
-            }
-          })
-          .catch(error=>{
-            alert('网络错误')
-          });
+              }else {
+                this.$message({
+                  message: '账号或密码不正确!',
+                  type: 'warning'
+                });
+              }
+            })
+            .catch(error=>{
+              this.$message({
+                message: '网络错误!',
+                type: 'error'
+              });
+            });
+        }
+
 
         // if(this.name=='admin' && this.pwd==123){
         //   this.$message({

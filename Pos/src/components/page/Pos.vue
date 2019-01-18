@@ -74,7 +74,7 @@
             <div class="often-goods-list">
               <ul>
                 <li v-for="goods in oftenGoods" @click="addOrderList(goods)">
-                  <span>{{goods.goodsName}}</span>
+                  <span>{{goods.name}}</span>
                   <span class="o-price">{{goods.price}}</span>
                 </li>
               </ul>
@@ -164,6 +164,7 @@
 </template>
 
 <script>
+  import url from '@/serviceAPI.config.js'
   import axios from 'axios';
   import  leftNav from '@/components/common/leftnav'
   export default {
@@ -208,23 +209,23 @@
       }
     },
     created:function(){
-      axios.get('http://jspang.com/DemoApi/oftenGoods.php')
+      axios.post(url.oftenQuery)
         .then(reponse=>{
-          this.oftenGoods = reponse.data;
+          this.oftenGoods = reponse.data.data;
         })
         .catch(error=>{
-          alert('网络错误')
+          // alert('网络错误')
         });
-      axios.get('http://jspang.com/DemoApi/typeGoods.php')
-        .then(reponse=>{
-          this.tape0Goods = reponse.data[0];
-          this.tape1Goods = reponse.data[1];
-          this.tape2Goods = reponse.data[2];
-          this.tape3Goods = reponse.data[3];
-        })
-        .catch(error=>{
-          alert('网络错误')
-        })
+      // axios.get('http://jspang.com/DemoApi/typeGoods.php')
+      //   .then(reponse=>{
+      //     this.tape0Goods = reponse.data[0];
+      //     this.tape1Goods = reponse.data[1];
+      //     this.tape2Goods = reponse.data[2];
+      //     this.tape3Goods = reponse.data[3];
+      //   })
+      //   .catch(error=>{
+      //     alert('网络错误')
+      //   })
     },
     mounted:function () {
       var orderHeight = document.body.clientHeight;
