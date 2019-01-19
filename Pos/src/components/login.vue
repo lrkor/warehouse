@@ -70,24 +70,6 @@
               });
             });
         }
-
-
-        // if(this.name=='admin' && this.pwd==123){
-        //   this.$message({
-        //     message: '登录成功!',
-        //     type: 'success'
-        //   });
-        //   this.$router.push({ path: 'Pos' });
-        // }else if(this.name=='123' && this.pwd==123){
-        //   this.$message({
-        //     message: '登录成功!',
-        //     type: 'success'
-        //   });
-        //   this.$router.push({ path: 'store' });
-        // }else {
-        //   this.$message.error('账号密码不正确');
-        // }
-
       },
       entLogin:function (ev) {
         if(ev.keyCode == 13){

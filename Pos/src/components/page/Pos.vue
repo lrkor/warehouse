@@ -87,10 +87,10 @@
               <el-tab-pane label="汉堡">
                 <div>
                   <ul class="cookList">
-                    <li v-for="goods in tape0Goods" @click="addOrderList(goods)">
-                      <span class="foodImg"><img :src="goods.goodsImg"></span>
+                    <li v-for="goods in type0Goods" @click="addOrderList(goods)">
+                      <span class="foodImg"><img :src="goods.img_url"></span>
                       <div style="float: left">
-                        <span class="foodName">{{goods.goodsName}}</span>
+                        <span class="foodName">{{goods.name}}</span>
                         <span class="foodPrice">{{goods.price}}</span>
                       </div>
                     </li>
@@ -101,10 +101,10 @@
 
                 <div>
                   <ul class="cookList">
-                    <li v-for="goods in tape1Goods" @click="addOrderList(goods)">
-                      <span class="foodImg"><img :src="goods.goodsImg"></span>
+                    <li v-for="goods in type1Goods" @click="addOrderList(goods)">
+                      <span class="foodImg"><img :src="goods.img_url"></span>
                       <div style="float: left">
-                        <span class="foodName">{{goods.goodsName}}</span>
+                        <span class="foodName">{{goods.name}}</span>
                         <span class="foodPrice">{{goods.price}}</span>
                       </div>
                     </li>
@@ -116,10 +116,10 @@
 
                 <div>
                   <ul class="cookList">
-                    <li v-for="goods in tape2Goods" @click="addOrderList(goods)">
-                      <span class="foodImg"><img :src="goods.goodsImg"></span>
+                    <li v-for="goods in type2Goods" @click="addOrderList(goods)">
+                      <span class="foodImg"><img :src="goods.img_url"></span>
                       <div style="float: left">
-                        <span class="foodName">{{goods.goodsName}}</span>
+                        <span class="foodName">{{goods.name}}</span>
                         <span class="foodPrice">{{goods.price}}</span>
                       </div>
                     </li>
@@ -128,13 +128,12 @@
 
               </el-tab-pane>
               <el-tab-pane label="套餐">
-
                 <div>
                   <ul class="cookList">
-                    <li v-for="goods in tape3Goods" @click="addOrderList(goods)">
-                      <span class="foodImg"><img :src="goods.goodsImg"></span>
+                    <li v-for="goods in type3Goods" @click="addOrderList(goods)">
+                      <span class="foodImg"><img :src="goods.img_url"></span>
                       <div style="float: left">
-                        <span class="foodName">{{goods.goodsName}}</span>
+                        <span class="foodName">{{goods.name}}</span>
                         <span class="foodPrice">{{goods.price}}</span>
                       </div>
                     </li>
@@ -183,10 +182,10 @@
         tableData:[],
         pagingtableData:[],
         oftenGoods:[],
-        tape0Goods:[],
-        tape1Goods:[],
-        tape2Goods:[],
-        tape3Goods:[],
+        type0Goods:[],
+        type1Goods:[],
+        type2Goods:[],
+        type3Goods:[],
         cancelled:[],
         gridData: [],
         takeOut:[
@@ -209,23 +208,38 @@
       }
     },
     created:function(){
+      //获取常用商品
       axios.post(url.oftenQuery)
-        .then(reponse=>{
-          this.oftenGoods = reponse.data.data;
+        .then(response=>{
+          this.oftenGoods = response.data.data;
         })
         .catch(error=>{
-          // alert('网络错误')
+          this.$message.error('网络错误');
         });
-      // axios.get('http://jspang.com/DemoApi/typeGoods.php')
-      //   .then(reponse=>{
-      //     this.tape0Goods = reponse.data[0];
-      //     this.tape1Goods = reponse.data[1];
-      //     this.tape2Goods = reponse.data[2];
-      //     this.tape3Goods = reponse.data[3];
-      //   })
-      //   .catch(error=>{
-      //     alert('网络错误')
-      //   })
+
+      //获取商品菜单内容
+      for(let i=0;i<4;i++){
+        axios.post(url.menuQuery,{
+          type:i
+        })
+          .then(response=>{
+            if(i==0){
+              this.type0Goods = response.data.data;
+            }else if(i==1){
+              this.type1Goods = response.data.data;
+            }else if(i==2){
+              this.type2Goods = response.data.data;
+            }else if(i==3){
+              this.type3Goods = response.data.data;
+            }
+
+          })
+          .catch(error=>{
+            this.$message.error('网络错误');
+          });
+      }
+
+
     },
     mounted:function () {
       var orderHeight = document.body.clientHeight;
