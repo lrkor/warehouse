@@ -7,7 +7,7 @@
           <el-tabs type="border-card">
             <el-tab-pane label="点餐" width="100">
               <el-table :data="pagingtableData" border style="width: 100%">
-                <el-table-column prop="goodsName" label="名称" width="100"></el-table-column>
+                <el-table-column prop="name" label="名称" width="100"></el-table-column>
                 <el-table-column prop="count" label="数量" width="58"></el-table-column>
                 <el-table-column prop="price" label="金额" width="58"></el-table-column>
                 <el-table-column label="操作" fixed="right">
@@ -149,7 +149,7 @@
 
       <el-dialog title="单号详情" :visible.sync="dialogTableVisible">
         <el-table type="border-card" :data="gridData">
-          <el-table-column property="goodsName" label="名称" width="150"></el-table-column>
+          <el-table-column property="name" label="名称" width="150"></el-table-column>
           <el-table-column property="count" label="数量" width="200"></el-table-column>
           <el-table-column property="price" label="金额"></el-table-column>
         </el-table>
@@ -192,17 +192,17 @@
           {
             order:1,
             money:20,
-            details:[{goodsName:'汉堡',count:2,price:25}]
+            details:[{name:'汉堡',count:2,price:25}]
           },
           {
             order:2,
             money:20,
-            details:[{goodsName:'汉堡',count:2,price:25}]
+            details:[{name:'汉堡',count:2,price:25}]
           },
           {
             order:3,
             money:20,
-            details:[{goodsName:'汉堡',count:2,price:25}]
+            details:[{name:'汉堡',count:2,price:25}]
           },
         ]
       }
@@ -271,18 +271,18 @@
         let isHave=false;
         //判断是否这个商品已经存在于订单列表
         for (let i=0; i<this.tableData.length;i++){
-          if(this.tableData[i].goodsId==goods.goodsId){
+          if(this.tableData[i].id==goods.id){
             isHave=true; //存在
           }
         }
         //根据isHave的值判断订单列表中是否已经有此商品
         if(isHave){
           //存在就进行数量添加
-          let arr = this.tableData.filter(o =>o.goodsId == goods.goodsId);
+          let arr = this.tableData.filter(o =>o.id == goods.id);
           arr[0].count++;
         }else{
           //不存在就推入数组
-          let newGoods={goodsId:goods.goodsId,goodsName:goods.goodsName,price:goods.price,count:1};
+          let newGoods={id:goods.id,name:goods.name,price:goods.price,count:1};
           this.tableData.push(newGoods);
 
         }
@@ -301,7 +301,7 @@
       },
       //删除单个商品
       delSingleGoods(goods){
-        this.tableData=this.tableData.filter(o => o.goodsId !=goods.goodsId);
+        this.tableData=this.tableData.filter(o => o.id !=goods.id);
         this.pagingtableData = this.tableData;
         this.getAllMoney();
       },
@@ -330,7 +330,7 @@
       //结账
       checkout() {
         if (this.totalCount!=0) {
-          this.tableData = [];
+          this.pagingtableData = [];
           this.totalCount = 0;
           this.totalMoney = 0;
           this.$message({
