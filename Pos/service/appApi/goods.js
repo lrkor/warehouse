@@ -6,7 +6,7 @@ const {query} = require('../database/init.js');
 
 //常用商品
 router.post('/often/query', async (ctx) => {
-  let sqlString = 'SELECT * FROM goods WHERE is_often=1';
+  let sqlString = `SELECT * FROM goods WHERE is_often=1`;
   let data = await query(sqlString);
   let json = {
     code: '200',
@@ -21,7 +21,7 @@ router.post('/often/query', async (ctx) => {
 //商品菜单内容
 router.post('/menu/query', async (ctx) => {
   let type = ctx.request.body.type;
-  let sqlString = 'SELECT * FROM goods WHERE type='+type+'';
+  let sqlString = `SELECT * FROM goods WHERE type=${type}`;
   let data = await query(sqlString);
   let json = {
     code: '200',

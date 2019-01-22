@@ -6,11 +6,12 @@ let router = new Router();
 const {query} = require('../database/init.js');
 
 router.post('/login', async (ctx) => {
-  let user_name = ctx.request.body.userName;
+  let userName = ctx.request.body.userName;
   let password = ctx.request.body.password;
-  let sqlString = 'SELECT * FROM user WHERE user_name="' + user_name + '"';
+  let sqlString =  `SELECT * FROM user WHERE user_name='${userName}'`;
   let json = {};
   let data = await query(sqlString);
+  console.log(data);
   if (data.length != 0 && data[0].password == password) {
     json = {
       code: '200',
