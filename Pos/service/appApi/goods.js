@@ -1,5 +1,7 @@
 const Router = require('koa-router');
 let router = new Router();
+
+//字段映射
 let keyMap = {
   "img_url": "imgUrl",
   "is_often": "isOften"
