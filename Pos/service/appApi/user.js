@@ -4,14 +4,18 @@ let router = new Router();
 
 //引入数据库
 const {query} = require('../database/init.js');
+const {fieldMap} = require('../map/map.js');
 
 router.post('/login', async (ctx) => {
   let userName = ctx.request.body.userName;
   let password = ctx.request.body.password;
-  let sqlString =  `SELECT * FROM user WHERE user_name='${userName}'`;
+  let sqlString = `SELECT * FROM user WHERE user_name='${userName}'`;
   let json = {};
   let data = await query(sqlString);
-  console.log(data);
+  let keyMap = {
+    "user_name": "userName",
+  };
+  data = fieldMap(data, keyMap);
   if (data.length != 0 && data[0].password == password) {
     json = {
       code: '200',

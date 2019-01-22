@@ -3,11 +3,17 @@ let router = new Router();
 
 //引入数据库
 const {query} = require('../database/init.js');
+const {fieldMap} = require('../map/map.js');
 
 //常用商品
 router.post('/often/query', async (ctx) => {
   let sqlString = `SELECT * FROM goods WHERE is_often=1`;
   let data = await query(sqlString);
+  let keyMap = {
+    "img_url": "imgUrl",
+    "is_often": "isOften"
+  };
+  data = fieldMap(data,keyMap);
   let json = {
     code: '200',
     status: 'success',
@@ -23,6 +29,11 @@ router.post('/menu/query', async (ctx) => {
   let type = ctx.request.body.type;
   let sqlString = `SELECT * FROM goods WHERE type=${type}`;
   let data = await query(sqlString);
+  let keyMap = {
+    "img_url": "imgUrl",
+    "is_often": "isOften"
+  };
+  data = fieldMap(data,keyMap);
   let json = {
     code: '200',
     status: 'success',

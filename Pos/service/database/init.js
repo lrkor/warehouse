@@ -26,11 +26,3 @@ exports.query = function( sql, values ) {
   })
 };
 
-// async function getData(sqlString) {
-//   let sql = sqlString;
-//   let data = await query( sql );
-//   console.log(data)
-// }
-// const query1 = 'SELECT * FROM user WHERE user_name="lisi"';
-// const query2 = 'SELECT * FROM user';
-// getData(query1);
