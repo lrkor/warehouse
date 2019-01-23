@@ -1,31 +1,26 @@
 <template>
   <div id="app">
-    <div class="main">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import  leftNav from '@/components/common/leftnav'
-export default {
-  name: 'App',
-  components:{
-    leftNav
+  import leftNav from '@/components/common/leftnav'
+  export default {
+    name: 'App',
+    components: {
+      leftNav
+    }
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-  .main{
-    /*margin-left: 80px;*/
+  #app {
+    font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html,body,#app{
     height: 100%;
   }
 </style>
