@@ -15,15 +15,32 @@ const {fieldMap} = require('../map/map.js');
 router.post('/login', async (ctx) => {
   let userName = ctx.request.body.userName;
   let password = ctx.request.body.password;
+  let type = ctx.request.body.type;
   let sqlString = `SELECT * FROM user WHERE user_name='${userName}'`;
   let json = {};
   let data = await query(sqlString);
   data = fieldMap(data, keyMap);
   if (data.length != 0 && data[0].password == password) {
-    json = {
-      code: '200',
-      status: 'success',
-      message: '登录成功'
+    if(type==1){
+      if(data[0].identity==1){
+        json = {
+          code: '200',
+          status: 'success',
+          message: '登录成功'
+        }
+      }else {
+        json = {
+          code: '403',
+          status: 'failure',
+          message: '你没有权限'
+        }
+      }
+    }else {
+      json = {
+        code: '200',
+        status: 'success',
+        message: '登录成功'
+      }
     }
   } else {
     json = {

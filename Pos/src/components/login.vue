@@ -83,7 +83,8 @@
         } else {
           axios.post(url.login, {
             userName: this.name,
-            password: this.pwd
+            password: this.pwd,
+            type:0    //1为后台 0为前台上
           })
             .then(reponse => {
               let data = reponse.data;

@@ -25,44 +25,6 @@
       }
     },
     methods: {
-      registered:function(){
-        if (this.name == '') {
-          this.$message({
-            message: '账号不能不空!',
-            type: 'warning'
-          });
-        } else if (this.pwd == '') {
-          this.$message({
-            message: '密码不能为空!',
-            type: 'warning'
-          });
-        }else {
-          axios.post(url.registered, {
-            userName: this.name,
-            password: this.pwd
-          }).then(reponse => {
-            let data = reponse.data;
-            if (data.code == '200') {
-              this.$message({
-                message: data.message,
-                type: 'success'
-              });
-              this.$router.push({path: 'Pos'});
-            } else {
-              this.$message({
-                message: data.message,
-                type: 'warning'
-              });
-            }
-          })
-            .catch(error => {
-              this.$message({
-                message: '网络错误!',
-                type: 'error'
-              });
-            });
-        }
-      },
       isLogin: function () {
         if (this.name == '') {
           this.$message({
@@ -77,7 +39,8 @@
         } else {
           axios.post(url.login, {
             userName: this.name,
-            password: this.pwd
+            password: this.pwd,
+            type:1    //1为后台 0为前台上
           })
             .then(reponse => {
               let data = reponse.data;
@@ -89,7 +52,7 @@
                 this.$router.push({path: 'Pos'});
               } else {
                 this.$message({
-                  message: '账号或密码不正确!',
+                  message: data.message,
                   type: 'warning'
                 });
               }
