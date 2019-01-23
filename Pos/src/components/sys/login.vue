@@ -1,6 +1,5 @@
 <template>
   <div id="login" @keyup="entLogin">
-    <div class="goSys" @dblclick="goSys"></div>
     <div class="login_main">
       <div>
         <el-input v-model="name" size="large" style="width: 300px;height: 48px" placeholder="请输入账号"></el-input>
@@ -9,8 +8,7 @@
         <el-input v-model="pwd" style="width: 300px;height: 48px" type="password" placeholder="请输入密码"></el-input>
       </div>
       <div>
-        <el-button type="success" style="width: 140px;height: 42px" @click="isLogin">登录</el-button>
-        <el-button type="info" style="width: 140px;height: 42px" @click="registered">注册</el-button>
+        <el-button type="success" style="width: 300px;height: 42px" @click="isLogin">登录</el-button>
       </div>
     </div>
   </div>
@@ -18,7 +16,6 @@
 <script>
   import axios from 'axios';
   import url from '@/serviceAPI.config.js'
-
   export default {
     data() {
       return {
@@ -27,11 +24,8 @@
         error: ''
       }
     },
-    mounted: function () {
-
-    },
     methods: {
-      registered: function () {
+      registered:function(){
         if (this.name == '') {
           this.$message({
             message: '账号不能不空!',
@@ -42,7 +36,7 @@
             message: '密码不能为空!',
             type: 'warning'
           });
-        } else {
+        }else {
           axios.post(url.registered, {
             userName: this.name,
             password: this.pwd
@@ -53,7 +47,7 @@
                 message: data.message,
                 type: 'success'
               });
-              this.$router.push({path: 'store'});
+              this.$router.push({path: 'Pos'});
             } else {
               this.$message({
                 message: data.message,
@@ -92,7 +86,7 @@
                   message: '登录成功!',
                   type: 'success'
                 });
-                this.$router.push({path: 'store'});
+                this.$router.push({path: 'Pos'});
               } else {
                 this.$message({
                   message: '账号或密码不正确!',
@@ -113,16 +107,13 @@
           this.isLogin();
         }
       },
-      goSys:function () {
-        this.$router.push({path: 'sysLogin'});
-      }
     }
   }
 </script>
 <style scoped>
   #login {
     height: 100%;
-    background-color: #409EFF;
+    background-color: #909399;
   }
 
   .login_main {
@@ -132,16 +123,9 @@
     padding-top: 200px;
   }
 
-  .login_main > div {
+  .login_main >div{
     text-align: center;
   }
 
-  .goSys {
-    width: 100px;
-    height: 50px;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-  }
 
 </style>

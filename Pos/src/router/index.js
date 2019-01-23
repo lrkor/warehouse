@@ -7,6 +7,7 @@ import set from '@/components/page/set'
 import vip from '@/components/page/vip'
 import cashier from '@/components/page/cashier'
 import statistical from '@/components/page/statistical'
+import sysLogin from '@/components/sys/login'
 
 
 Vue.use(Router);
@@ -47,6 +48,11 @@ export default new Router({
       path: '/statistical',
       name: 'statistical',
       component: statistical
+    },
+    {
+      path: '/sysLogin',
+      name: 'sysLogin',
+      component: sysLogin
     },
   ]
 })
