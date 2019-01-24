@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container style="height: 100%">
-      <el-header style="background-color: #393D49">Header</el-header>
+      <el-header style="background-color: #f2f2f2;line-height: 60px;font-weight: 700">后台管理</el-header>
       <el-container>
         <el-aside width="200px">
           <el-menu style="height: 100%"
