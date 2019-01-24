@@ -69,4 +69,8 @@
   div{
     height: 100%;
   }
+  a{
+    text-decoration: none;
+    color: #fff;
+  }
 </style>
