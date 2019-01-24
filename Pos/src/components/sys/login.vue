@@ -49,7 +49,7 @@
                   message: '登录成功!',
                   type: 'success'
                 });
-                this.$router.push({path: 'Pos'});
+                this.$router.push({path: 'sys'});
               } else {
                 this.$message({
                   message: data.message,
