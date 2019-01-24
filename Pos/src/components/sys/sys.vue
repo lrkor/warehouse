@@ -5,24 +5,24 @@
       <el-container>
         <el-aside width="200px">
           <el-menu style="height: 100%"
-            default-active="2"
-            class="el-menu-vertical-demo"
-            background-color="#393D49"
-            text-color="#fff"
-            active-text-color="#ffd04b">
+                   default-active="2"
+                   class="el-menu-vertical-demo"
+                   background-color="#393D49"
+                   text-color="#fff"
+                   active-text-color="#ffd04b">
             <el-submenu index="1">
               <template slot="title">
-                <!--<i class="el-icon-location"></i>-->
+                <i class="iconfont  icon-ren-copy"></i>
                 <span>用户管理</span>
               </template>
-                <el-menu-item index="1-1">
-                  <router-link to="/sys/user/list">用户列表</router-link>
-                </el-menu-item>
+              <el-menu-item index="1-1">
+                <router-link to="/sys/user/list">用户列表</router-link>
+              </el-menu-item>
             </el-submenu>
 
             <el-submenu index="2">
               <template slot="title">
-                <!--<i class="el-icon-location"></i>-->
+                <i class="iconfont  icon-shangpin"></i>
                 <span>商品管理</span>
               </template>
               <el-menu-item index="2-1">
@@ -32,7 +32,7 @@
 
             <el-submenu index="3">
               <template slot="title">
-                <!--<i class="el-icon-location"></i>-->
+                <i class="iconfont  icon-tubiaolunkuo-"></i>
                 <span>订单管理</span>
               </template>
               <el-menu-item index="3-1">
@@ -50,15 +50,15 @@
 </template>
 
 <script>
+  import '../../assets/icon/iconfont.css';
+
   export default {
     name: "sys",
     data() {
-      return {
-
-      }
+      return {}
     },
-    methods:{
-      goList:function (path) {
+    methods: {
+      goList: function (path) {
         this.$router.push({path: path});
       }
     }
@@ -66,11 +66,18 @@
 </script>
 
 <style scoped>
-  div{
+  div {
     height: 100%;
   }
-  a{
+
+  a {
     text-decoration: none;
     color: #fff;
+  }
+  .el-submenu .el-menu-item{
+    min-width: auto!important;
+  }
+  .el-main{
+    padding: 0!important;
   }
 </style>
