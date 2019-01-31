@@ -64,7 +64,6 @@
     name: "sys",
     data() {
       return {
-        activeIndex: '1-1'
       }
     },
     methods: {
@@ -78,10 +77,6 @@
 <style scoped>
   div {
     height: 100%;
-  }
-
-  a {
-    text-decoration: none;
   }
 
   .el-submenu .el-menu-item {
