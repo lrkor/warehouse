@@ -28,7 +28,7 @@ router.post('/file', async (ctx) => {
   reader.pipe(upStream);
   let json = {
     code: 200,
-    data: { url: + ctx.headers.host + '/uploads/' + newFilename }
+    data: { url: ctx.headers.host + '/uploads/' + newFilename }
   };
   ctx.set("Content-Type", "application/json");
   ctx.body = JSON.stringify(json);
