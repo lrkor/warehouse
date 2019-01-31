@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container style="height: 100%">
-      <el-header style="background-color: #f2f2f2;line-height: 60px;font-weight: 700">后台管理</el-header>
+      <el-header style="background-color: #393D49;line-height: 60px;font-weight: 700;color: #fff">后台管理</el-header>
       <el-container>
         <el-aside width="200px">
           <el-menu style="height: 100%"
@@ -27,6 +27,9 @@
               </template>
               <el-menu-item index="2-1">
                 <router-link to="/sys/goods/list">商品列表</router-link>
+              </el-menu-item>
+              <el-menu-item index="2-2">
+                <router-link to="/sys/goods/add">添加商品</router-link>
               </el-menu-item>
             </el-submenu>
 
@@ -74,10 +77,13 @@
     text-decoration: none;
     color: #fff;
   }
-  .el-submenu .el-menu-item{
-    min-width: auto!important;
+
+  .el-submenu .el-menu-item {
+    min-width: auto !important;
   }
-  .el-main{
-    padding: 0!important;
+
+  .el-main {
+    background-color: #f4f1f4;
+    padding: 0 !important;
   }
 </style>
