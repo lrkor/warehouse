@@ -1,4 +1,7 @@
 <template>
+  <div>
+    用户列表
+  </div>
   <!--<div class="list">-->
     <!--<div class="data-table">-->
       <!--<el-table :data="" border style="width: 100%">-->

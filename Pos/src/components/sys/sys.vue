@@ -5,18 +5,20 @@
       <el-container>
         <el-aside width="200px">
           <el-menu style="height: 100%"
-                   default-active="2"
+                   :default-active="$route.path"
                    class="el-menu-vertical-demo"
                    background-color="#393D49"
                    text-color="#fff"
-                   active-text-color="#ffd04b">
+                   active-text-color="#fff"
+                   router>
             <el-submenu index="1">
               <template slot="title">
                 <i class="iconfont  icon-ren-copy"></i>
                 <span>用户管理</span>
               </template>
-              <el-menu-item index="1-1">
-                <router-link to="/sys/user/list">用户列表</router-link>
+              <el-menu-item index="/sys/user/list" route="">
+                用户列表
+                <!--<router-link to="">用户列表</router-link>-->
               </el-menu-item>
             </el-submenu>
 
@@ -25,11 +27,13 @@
                 <i class="iconfont  icon-shangpin"></i>
                 <span>商品管理</span>
               </template>
-              <el-menu-item index="2-1">
-                <router-link to="/sys/goods/list">商品列表</router-link>
+              <el-menu-item index="/sys/goods/list" route="">
+                商品列表
+                <!--<router-link to="">商品列表</router-link>-->
               </el-menu-item>
-              <el-menu-item index="2-2">
-                <router-link to="/sys/goods/add">添加商品</router-link>
+              <el-menu-item index="/sys/goods/add" route="">
+                添加商品
+                <!--<router-link to="">添加商品</router-link>-->
               </el-menu-item>
             </el-submenu>
 
@@ -38,8 +42,9 @@
                 <i class="iconfont  icon-tubiaolunkuo-"></i>
                 <span>订单管理</span>
               </template>
-              <el-menu-item index="3-1">
-                <router-link to="/sys/order/list">订单列表</router-link>
+              <el-menu-item index="/sys/order/list" route="">
+                订单列表
+                <!--<router-link to="">订单列表</router-link>-->
               </el-menu-item>
             </el-submenu>
           </el-menu>
@@ -58,7 +63,9 @@
   export default {
     name: "sys",
     data() {
-      return {}
+      return {
+        activeIndex: '1-1'
+      }
     },
     methods: {
       goList: function (path) {
@@ -75,7 +82,6 @@
 
   a {
     text-decoration: none;
-    color: #fff;
   }
 
   .el-submenu .el-menu-item {
@@ -85,5 +91,13 @@
   .el-main {
     background-color: #f4f1f4;
     padding: 0 !important;
+  }
+
+  .el-menu-item.is-active {
+    background-color: #009688 !important;
+  }
+
+  .el-menu-item.is-active a {
+    color: #fff !important;
   }
 </style>
