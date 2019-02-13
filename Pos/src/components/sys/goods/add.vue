@@ -45,30 +45,42 @@
 <script>
   import url from '@/serviceAPI.config.js'
   import axios from 'axios';
+
   export default {
     name: "add",
-    data(){
+    data() {
       return {
         fileList2: [],
-        uploadUrl:url.upload,
+        uploadUrl: url.upload,
         form: {
           name: '',
           price: '',
           imgUrl: '',
-          isOften:'',
-          type:''
+          isOften: '',
+          type: ''
         }
       }
     },
-    methods:{
+    methods: {
       onSubmit() {
         axios.post(url.goodsAdd, {
-         data:this.form
+          data: this.form
         })
           .then(reponse => {
-          let data = reponse.data;
-          console.log(data);
-        })
+            let data = reponse.data;
+            if (data.code == '200') {
+              this.$message({
+                message: '添加成功!',
+                type: 'success'
+              });
+              this.$router.go(-1);
+            } else {
+              this.$message({
+                message: '添加失败!',
+                type: 'warning'
+              });
+            }
+          })
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -76,7 +88,7 @@
       handlePreview(file) {
         console.log(file);
       },
-      handleSuccess(file){
+      handleSuccess(file) {
         console.log(file);
         this.form.imgUrl = file.data.url;
         console.log(this.form.imgUrl);
@@ -86,16 +98,18 @@
 </script>
 
 <style scoped>
-  .add-goods{
+  .add-goods {
     width: 1100px;
     margin: 20px auto;
     padding: 20px 0;
     background-color: #fff;
   }
-  .el-form{
+
+  .el-form {
     padding: 0 15px;
   }
-  .el-input,.el-select{
+
+  .el-input, .el-select {
     width: 300px;
   }
 </style>

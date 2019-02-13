@@ -19,9 +19,9 @@ router.post('/file', async (ctx) => {
   // 创建可读流
   const reader = fs.createReadStream(file.path);
   // 修改文件的名称
-  var myDate = new Date();
-  var newFilename = myDate.getTime()+'.'+file.name.split('.')[1];
-  var targetPath = path.join(__dirname, '../public/uploads/') + `/${newFilename}`;
+  let myDate = new Date();
+  let newFilename = myDate.getTime()+'.'+file.name.split('.')[1];
+  let targetPath = path.join(__dirname, '../public/uploads/') + `/${newFilename}`;
   //创建可写流
   const upStream = fs.createWriteStream(targetPath);
   // 可读流通过管道写入可写流
