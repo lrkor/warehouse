@@ -42,8 +42,8 @@
             password: this.pwd,
             type:1    //1为后台 0为前台上
           })
-            .then(reponse => {
-              let data = reponse.data;
+            .then(response => {
+              let data = response.data;
               if (data.code == '200') {
                 this.$message({
                   message: '登录成功!',

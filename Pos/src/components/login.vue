@@ -46,8 +46,8 @@
           axios.post(url.registered, {
             userName: this.name,
             password: this.pwd
-          }).then(reponse => {
-            let data = reponse.data;
+          }).then(response => {
+            let data = response.data;
             if (data.code == '200') {
               this.$message({
                 message: data.message,
