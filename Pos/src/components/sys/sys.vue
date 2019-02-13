@@ -29,12 +29,10 @@
               </template>
               <el-menu-item index="/sys/goods/list" route="">
                 商品列表
-                <!--<router-link to="">商品列表</router-link>-->
               </el-menu-item>
-              <el-menu-item index="/sys/goods/add" route="">
-                添加商品
-                <!--<router-link to="">添加商品</router-link>-->
-              </el-menu-item>
+              <!--<el-menu-item index="/sys/goods/add" route="">-->
+                <!--添加商品-->
+              <!--</el-menu-item>-->
             </el-submenu>
 
             <el-submenu index="3">

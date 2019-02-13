@@ -56,4 +56,33 @@ router.post('/add', async (ctx) => {
   ctx.body = JSON.stringify(json);
 });
 
+//查询所有商品
+router.post('/query', async (ctx) => {
+  let sqlString = `SELECT * FROM goods`;
+  let data = await query(sqlString);
+  data = fieldMap(data, keyMap);
+  let json = {
+    code: '200',
+    status: 'success',
+    data: data,
+    message: '查询成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
+//删除单个商品
+router.post('/delete', async (ctx) => {
+  let id = ctx.request.body.id;
+  let sqlString = `DELETE FROM goods WHERE id='${id}'`;
+  let data = await query(sqlString);
+  let json = {
+    code: '200',
+    status: 'success',
+    message: '删除成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
 module.exports = router;

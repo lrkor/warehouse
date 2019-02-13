@@ -4,6 +4,10 @@ const URL = {
   registered: LOCALURL + 'user/registered',  //用户注册接口
   oftenQuery: LOCALURL + 'goods/often/query',  //查询常用商品
   menuQuery: LOCALURL + 'goods/menu/query',  //查询商品菜单内容
+  goodsQuery: LOCALURL + 'goods/query',  //查询商品菜单内容
+
+  goodsDelete: LOCALURL + 'goods/delete',  //删除单个商品
+
   upload: LOCALURL + 'upload/file',  // 文件上传
 
   goodsAdd: LOCALURL + 'goods/add',  // 文件上传
