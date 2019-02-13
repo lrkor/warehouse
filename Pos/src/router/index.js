@@ -13,6 +13,7 @@ import sys from '@/components/sys/sys'
 //后台子路由
 import goodsList from '@/components/sys/goods/list'
 import goodsAdd from '@/components/sys/goods/add'
+import goodsUpdate from '@/components/sys/goods/update'
 import userList from '@/components/sys/user/list'
 import orderList from '@/components/sys/order/list'
 
@@ -35,6 +36,7 @@ export default new Router({
       children:[
         {path: 'goods/list', name: 'goodsList', component: goodsList},
         {path: 'goods/add', name: 'goodsAdd', component: goodsAdd},
+        {path: 'goods/update/:id', name: 'goodsUpdate', component: goodsUpdate},
         {path: 'user/list', name: 'userList', component: userList},
         {path: 'order/list', name: 'orderList', component: orderList},
       ]

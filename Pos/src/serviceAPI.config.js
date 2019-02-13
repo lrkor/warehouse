@@ -7,6 +7,7 @@ const URL = {
   goodsQuery: LOCALURL + 'goods/query',  //查询商品菜单内容
 
   goodsDelete: LOCALURL + 'goods/delete',  //删除单个商品
+  goodsGet: LOCALURL + 'goods/get',  //查询单个商品
 
   upload: LOCALURL + 'upload/file',  // 文件上传
 

@@ -85,4 +85,20 @@ router.post('/delete', async (ctx) => {
   ctx.body = JSON.stringify(json);
 });
 
+//获取单个商品
+router.get('/get', async (ctx) => {
+  let id = ctx.query.id;
+  let sqlString = `SELECT * FROM goods WHERE id='${id}'`;
+  let data = await query(sqlString);
+  data = fieldMap(data, keyMap);
+  let json = {
+    code: '200',
+    status: 'success',
+    data:data,
+    message: '查询成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
 module.exports = router;

@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column
           prop="price"
-          label="价格"
+          label="价格（元）"
           width="120">
         </el-table-column>
         <el-table-column
@@ -69,7 +69,7 @@
     },
     methods: {
       formatIsOften: function (row, column) {
-        return row.isOften === 1 ? '常用' : '不常用'
+        return row.isOften == 1 ? '常用' : '不常用'
       },
       formatType: function (row, column) {
         return row.type === 0 ? '汉堡' : row.type === 1 ? '小吃' : row.type === 2 ? '饮品' : '套餐';
@@ -113,7 +113,11 @@
           });
       },
       editor(row) {
-        console.log(row);
+        let id = row.id;
+        // this.$router.push({path: '/sys/goods/add'});
+        this.$router.push({
+          path: `/sys/goods/update/${id}`,
+        })
       },
     },
 

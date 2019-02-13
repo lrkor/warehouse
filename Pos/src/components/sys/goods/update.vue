@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <div class="nav"><span class="goBack" @click="goBack">商品管理</span> / 新增</div>
+    <div class="nav"><span class="goBack" @click="goBack">商品管理</span> / 编辑</div>
     <div class="add-goods">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="商品名称">
@@ -26,6 +26,7 @@
         <el-form-item label="商品图片">
           <el-upload
             class="upload-demo"
+            :limit="1"
             :action="uploadUrl"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
@@ -50,7 +51,7 @@
   import axios from 'axios';
 
   export default {
-    name: "add",
+    name: "update",
     data() {
       return {
         fileList: [],
@@ -64,6 +65,31 @@
         }
       }
     },
+    //数据初始化完毕自动调用方法
+    created() {
+      //获取传入的参数
+      let param = this.$route.params;
+      let id = param.id;
+      axios.get(url.goodsGet, {
+        params: {
+          id: id
+        }
+      })
+        .then(response => {
+          this.form = response.data.data[0];
+          console.log(response.data.data[0].imgUrl);
+          let arr = [
+            {
+              name:response.data.data[0].name,
+              url:response.data.data[0].imgUrl
+            }
+          ];
+          this.fileList = arr;
+        })
+        .catch(error => {
+          this.$message.error('网络错误');
+        });
+    },
     methods: {
       goBack(){
         this.$router.go(-1);
@@ -72,8 +98,8 @@
         axios.post(url.goodsAdd, {
           data: this.form
         })
-          .then(response => {
-            let data = response.data;
+          .then(reponse => {
+            let data = reponse.data;
             if (data.code == '200') {
               this.$message({
                 message: '添加成功!',
