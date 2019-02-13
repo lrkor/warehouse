@@ -93,7 +93,11 @@
                   message: '登录成功!',
                   type: 'success'
                 });
-                this.$router.push({path: 'store'});
+                if(data.data.identity==1){
+                  this.$router.push({path: 'Pos'});
+                }else {
+                  this.$router.push({path: 'store'});
+                }
               } else {
                 this.$message({
                   message: '账号或密码不正确!',

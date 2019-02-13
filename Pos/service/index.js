@@ -3,14 +3,14 @@ const app = new Koa();
 
 
 const Router = require('koa-router');
-const bodyParser = require('koa-bodyparser');
+// const bodyParser = require('koa-bodyparser');
 const koaBody = require('koa-body');
 const cors = require('koa2-cors');
 
 
 
 app.use(cors());
-app.use(bodyParser());
+// app.use(bodyParser());
 app.use(koaBody({
   multipart: true,
   formidable: {

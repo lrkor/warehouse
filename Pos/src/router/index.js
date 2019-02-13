@@ -20,6 +20,7 @@ import orderList from '@/components/sys/order/list'
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',  //去掉url中的#
   routes: [
     {path: '/', name: 'login', component: login},
     {path: '/Pos', name: 'Pos', component: Pos},

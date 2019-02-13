@@ -39,7 +39,8 @@ router.post('/login', async (ctx) => {
       json = {
         code: '200',
         status: 'success',
-        message: '登录成功'
+        message: '登录成功',
+        data:{identity:data[0].identity}
       }
     }
   } else {

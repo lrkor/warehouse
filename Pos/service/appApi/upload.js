@@ -13,7 +13,7 @@ let keyMap = {
 const {query} = require('../database/init.js');
 const {fieldMap} = require('../map/map.js');
 
-//商品菜单内容
+//文件上传
 router.post('/file', async (ctx) => {
   const file = ctx.request.files.file; // 上传的文件在ctx.request.files.file
   // 创建可读流
