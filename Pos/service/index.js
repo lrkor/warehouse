@@ -6,6 +6,16 @@ const Router = require('koa-router');
 // const bodyParser = require('koa-bodyparser');
 const koaBody = require('koa-body');
 const cors = require('koa2-cors');
+const path = require('path');
+const koaStatic = require('koa-static');
+
+//设置静态资源的路径
+const staticPath = './public';
+
+// 配置静态web服务的中间件
+app.use(koaStatic(
+  path.join( __dirname, staticPath)
+));
 
 
 

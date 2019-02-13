@@ -7,12 +7,27 @@
       <el-form-item label="商品价格">
         <el-input v-model="form.price"></el-input>
       </el-form-item>
+      <el-form-item label="常用商品">
+        <el-select v-model="form.isOften" placeholder="请选择">
+          <el-option label="是" value="1"></el-option>
+          <el-option label="否" value="0"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="商品类别">
+        <el-select v-model="form.type" placeholder="请选择">
+          <el-option label="汉堡" value="0"></el-option>
+          <el-option label="饮料" value="1"></el-option>
+          <el-option label="小食" value="2"></el-option>
+          <el-option label="套餐" value="3"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="商品图片">
         <el-upload
           class="upload-demo"
           :action="uploadUrl"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
+          :on-success="handleSuccess"
           :file-list="fileList2"
           list-type="picture">
           <el-button size="small" type="primary">点击上传</el-button>
@@ -40,18 +55,31 @@
           name: '',
           price: '',
           imgUrl: '',
+          isOften:'',
+          type:''
         }
       }
     },
     methods:{
       onSubmit() {
-        console.log('submit!');
+        axios.post(url.goodsAdd, {
+         data:this.form
+        })
+          .then(reponse => {
+          let data = reponse.data;
+          console.log(data);
+        })
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);
       },
       handlePreview(file) {
         console.log(file);
+      },
+      handleSuccess(file){
+        console.log(file);
+        this.form.imgUrl = file.data.url;
+        console.log(this.form.imgUrl);
       }
     },
   }
@@ -67,7 +95,7 @@
   .el-form{
     padding: 0 15px;
   }
-  .el-input{
+  .el-input,.el-select{
     width: 300px;
   }
 </style>

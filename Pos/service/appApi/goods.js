@@ -42,20 +42,22 @@ router.post('/menu/query', async (ctx) => {
   ctx.body = JSON.stringify(json);
 });
 
-//商品菜单内容
+//添加商品
 router.post('/add', async (ctx) => {
-  let type = ctx.request.body.type;
-  // let sqlString = `SELECT * FROM goods WHERE type=${type}`;
-  // let data = await query(sqlString);
-  // data = fieldMap(data, keyMap);
-  // let json = {
-  //   code: '200',
-  //   status: 'success',
-  //   data: data,
-  //   message: '查询成功'
-  // };
-  // ctx.set("Content-Type", "application/json");
-  // ctx.body = JSON.stringify(json);
+  console.log(ctx.request.body);
+  let obj = ctx.request.body.data;
+  let sqlString = `INSERT INTO goods (name, price, img_url, is_often, type) VALUES ('${obj.name}',${obj.price},'${obj.imgUrl}',${obj.isOften},${obj.type})`;
+  console.log(sqlString);
+  let data = await query(sqlString);
+  data = fieldMap(data, keyMap);
+  let json = {
+    code: '200',
+    status: 'success',
+    data: data,
+    message: '查询成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
 });
 
 module.exports = router;

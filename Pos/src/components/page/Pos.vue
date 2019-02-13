@@ -88,7 +88,7 @@
                 <div>
                   <ul class="cookList">
                     <li v-for="goods in type0Goods" @click="addOrderList(goods)">
-                      <span class="foodImg"><img :src="goods.imgUrl"></span>
+                      <span class="foodImg"><img  :src="goods.imgUrl"></span>
                       <div style="float: left">
                         <span class="foodName">{{goods.name}}</span>
                         <span class="foodPrice">{{goods.price}}</span>
@@ -102,7 +102,7 @@
                 <div>
                   <ul class="cookList">
                     <li v-for="goods in type1Goods" @click="addOrderList(goods)">
-                      <span class="foodImg"><img :src="goods.imgUrl"></span>
+                      <span class="foodImg"><img  :src="goods.imgUrl"></span>
                       <div style="float: left">
                         <span class="foodName">{{goods.name}}</span>
                         <span class="foodPrice">{{goods.price}}</span>
@@ -117,7 +117,7 @@
                 <div>
                   <ul class="cookList">
                     <li v-for="goods in type2Goods" @click="addOrderList(goods)">
-                      <span class="foodImg"><img :src="goods.imgUrl"></span>
+                      <span class="foodImg"><img  :src="goods.imgUrl"></span>
                       <div style="float: left">
                         <span class="foodName">{{goods.name}}</span>
                         <span class="foodPrice">{{goods.price}}</span>
@@ -131,7 +131,7 @@
                 <div>
                   <ul class="cookList">
                     <li v-for="goods in type3Goods" @click="addOrderList(goods)">
-                      <span class="foodImg"><img :src="goods.imgUrl"></span>
+                      <span class="foodImg"><img  :src="goods.imgUrl"></span>
                       <div style="float: left">
                         <span class="foodName">{{goods.name}}</span>
                         <span class="foodPrice">{{goods.price}}</span>
@@ -469,7 +469,8 @@
     height: auto;
   }
  .foodImg img{
-   width: 100%;
+   width: 100px;
+   height: 60px;
  }
   .foodName{
     font-size: 16px;
