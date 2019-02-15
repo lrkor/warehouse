@@ -114,7 +114,6 @@
       },
       editor(row) {
         let id = row.id;
-        // this.$router.push({path: '/sys/goods/add'});
         this.$router.push({
           path: `/sys/goods/update/${id}`,
         })

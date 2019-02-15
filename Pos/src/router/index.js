@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+//404
+import NotFoundComponent from '@/components/notFound'
+
 import login from '@/components/login'
 import Pos from '@/components/page/Pos'
 import store from '@/components/page/store'
@@ -21,8 +25,10 @@ import orderList from '@/components/sys/order/list'
 Vue.use(Router);
 
 export default new Router({
-  mode: 'hash',  //去掉url中的#
+  // mode: 'history',  //去掉url中的#
+  // base:'/vueH5/dist/',
   routes: [
+    {path: '*', component: NotFoundComponent},
     {path: '/', name: 'login', component: login},
     {path: '/Pos', name: 'Pos', component: Pos},
     {path: '/store', name: 'store', component: store,},

@@ -77,7 +77,6 @@
       })
         .then(response => {
           this.form = response.data.data[0];
-          console.log(response.data.data[0].imgUrl);
           let arr = [
             {
               name:response.data.data[0].name,
@@ -98,8 +97,8 @@
         axios.post(url.goodsAdd, {
           data: this.form
         })
-          .then(reponse => {
-            let data = reponse.data;
+          .then(response => {
+            let data = response.data;
             if (data.code == '200') {
               this.$message({
                 message: '添加成功!',
