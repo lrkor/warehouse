@@ -26,9 +26,9 @@ Vue.use(Router);
 
 export default new Router({
   // mode: 'history',  //去掉url中的#
-  // base:'/vueH5/dist/',
+  // base:'/dist',
   routes: [
-    {path: '*', component: NotFoundComponent},
+    // {path: '*', component: NotFoundComponent},
     {path: '/', name: 'login', component: login},
     {path: '/Pos', name: 'Pos', component: Pos},
     {path: '/store', name: 'store', component: store,},

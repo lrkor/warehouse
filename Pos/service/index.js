@@ -9,6 +9,18 @@ const cors = require('koa2-cors');
 const path = require('path');
 const koaStatic = require('koa-static');
 
+//适配vue history的中间件
+const history = require('./middleware/koa2-connect-history-api-fallback');
+// handle fallback for HTML5 history API
+app.use(history({
+  htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'],
+  index: '/',
+  rewrites:[
+    { from: /\/dist\/search/, to: '/index.html'}
+  ],
+  verbose: true//打出转发日志
+}));
+
 //设置静态资源的路径
 const staticPath = './public';
 
@@ -16,8 +28,6 @@ const staticPath = './public';
 app.use(koaStatic(
   path.join( __dirname, staticPath)
 ));
-
-
 
 app.use(cors());
 // app.use(bodyParser());
