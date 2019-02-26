@@ -58,15 +58,23 @@ router.post('/add', async (ctx) => {
 
 //查询所有商品
 router.post('/query', async (ctx) => {
-  let sqlString = `SELECT * FROM goods`;
+  let page = ctx.request.body.page;
+  let size = ctx.request.body.size;
+  let sqlStringTotal = `SELECT * FROM goods`;
+  let dataTotal = await query(sqlStringTotal);
+
+  let sqlString = `SELECT * FROM goods limit ${(page - 1) * size},${size}`;
   let data = await query(sqlString);
   data = fieldMap(data, keyMap);
+
   let json = {
     code: '200',
     status: 'success',
     data: data,
-    message: '查询成功'
+    message: '查询成功',
+    total:dataTotal.length
   };
+
   ctx.set("Content-Type", "application/json");
   ctx.body = JSON.stringify(json);
 });

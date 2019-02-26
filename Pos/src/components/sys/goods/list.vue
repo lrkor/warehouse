@@ -1,5 +1,6 @@
 <template>
   <div class="goods_list">
+
     <div class="goods_add">
       <el-button type="primary" size="medium" plain @click="goAdd">新增</el-button>
     </div>
@@ -38,6 +39,18 @@
         </el-table-column>
       </el-table>
     </div>
+    <div class="paging">
+      <div class="block">
+        <el-pagination
+          layout="prev, pager, next"
+          :total="total"
+          @current-change="sizeChange"
+          @prev-click="sizePrev"
+          @next-click="sizeNext"
+        >
+        </el-pagination>
+      </div>
+    </div>
     <el-dialog
       title="提示"
       :visible.sync="centerDialogVisible"
@@ -60,8 +73,10 @@
     data() {
       return {
         goodsList: [],
-        centerDialogVisible:false,
-        id:'',
+        centerDialogVisible: false,
+        id: '',
+        page: 1,
+        total: 0,
       }
     },
     created: function () {
@@ -76,9 +91,13 @@
       },
 
       query() {
-        axios.post(url.goodsQuery)
+        axios.post(url.goodsQuery, {
+          page: this.page,
+          size: 10
+        })
           .then(response => {
             this.goodsList = response.data.data;
+            this.total = response.data.total;
           })
           .catch(error => {
             this.$message.error('网络错误');
@@ -88,10 +107,12 @@
       goAdd() {
         this.$router.push({path: '/sys/goods/add'});
       },
-      showDel(row){
+
+      showDel(row) {
         this.centerDialogVisible = true;
         this.id = row.id;
       },
+
       del() {
         let id = this.id;
         this.centerDialogVisible = false;
@@ -112,12 +133,28 @@
             this.$message.error('网络错误');
           });
       },
+
       editor(row) {
         let id = row.id;
         this.$router.push({
           path: `/sys/goods/update/${id}`,
         })
       },
+
+      sizeChange(val) {
+        this.page = val;
+        this.query();
+      },
+
+      sizePrev() {
+        this.page = this.page - 1;
+        this.query();
+      },
+
+      sizeNext() {
+        this.page = this.page + 1;
+        this.query();
+      }
     },
 
 
@@ -138,5 +175,12 @@
   .goods_add {
     padding-left: 15px;
     padding-top: 15px;
+  }
+
+  .paging {
+    text-align: right;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
   }
 </style>

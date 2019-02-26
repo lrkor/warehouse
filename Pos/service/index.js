@@ -18,7 +18,7 @@ app.use(history({
   rewrites:[
     { from: /\/dist\/search/, to: '/index.html'}
   ],
-  verbose: true//打出转发日志
+  // verbose: true//打出转发日志
 }));
 
 //设置静态资源的路径
