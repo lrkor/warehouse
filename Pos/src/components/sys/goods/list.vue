@@ -1,6 +1,5 @@
 <template>
   <div class="goods_list">
-
     <div class="goods_add">
       <el-button type="primary" size="medium" plain @click="goAdd">新增</el-button>
     </div>
@@ -156,8 +155,6 @@
         this.query();
       }
     },
-
-
   }
 </script>
 

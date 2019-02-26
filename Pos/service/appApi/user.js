@@ -82,4 +82,41 @@ router.post('/registered', async (ctx) => {
   ctx.body = JSON.stringify(json);
 });
 
+//查询用户列表
+router.post('/query', async (ctx) => {
+  let page = ctx.request.body.page;
+  let size = ctx.request.body.size;
+  let sqlStringTotal = `SELECT * FROM user`;
+  let dataTotal = await query(sqlStringTotal);
+
+  let sqlString = `SELECT * FROM user limit ${(page - 1) * size},${size}`;
+  let data = await query(sqlString);
+  data = fieldMap(data, keyMap);
+
+  let json = {
+    code: '200',
+    status: 'success',
+    data: data,
+    message: '查询成功',
+    total:dataTotal.length
+  };
+
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
+//删除用户
+router.post('/delete', async (ctx) => {
+  let id = ctx.request.body.id;
+  let sqlString = `DELETE FROM user WHERE id='${id}'`;
+  let data = await query(sqlString);
+  let json = {
+    code: '200',
+    status: 'success',
+    message: '删除成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
 module.exports = router;
