@@ -3,16 +3,6 @@ const fs = require('fs');
 const path = require('path');
 let router = new Router();
 
-//字段映射
-let keyMap = {
-  "img_url": "imgUrl",
-  "is_often": "isOften"
-};
-
-//引入数据库
-const {query} = require('../database/init.js');
-const {fieldMap} = require('../map/map.js');
-
 //文件上传
 router.post('/file', async (ctx) => {
   const file = ctx.request.files.file; // 上传的文件在ctx.request.files.file

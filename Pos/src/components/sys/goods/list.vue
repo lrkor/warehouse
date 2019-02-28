@@ -3,41 +3,11 @@
     <div class="goods_add">
       <el-button type="primary" size="medium" plain @click="goAdd">新增</el-button>
     </div>
-    <div class="list_table">
-      <el-table
-        :data="goodsList"
-        border
-        style="width: 100%">
-        <el-table-column
-          prop="name"
-          label="名称"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="price"
-          label="价格（元）"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="isOften"
-          label="是否常用"
-          width="120"
-          :formatter="formatIsOften">
-        </el-table-column>
-        <el-table-column
-          prop="type"
-          label="商品类别"
-          width="120"
-          :formatter="formatType">
-        </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button type="danger" @click="showDel(scope.row)" size="mini">删除</el-button>
-            <el-button type="primary" @click="editor(scope.row)" size="mini">编辑</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
+    <listTable
+      :list="goodsList"
+      :headerList="headerList"
+      @editor="editor"
+      @showDel="showDel"></listTable>
     <div class="paging">
       <div class="block">
         <el-pagination
@@ -68,10 +38,19 @@
   import url from '@/serviceAPI.config.js'
   import axios from 'axios';
 
+  import listTable from '../../common/listTable'
+
   export default {
+    components:{listTable},
     data() {
       return {
         goodsList: [],
+        headerList:[
+          {prop:'name',label:'名称',width:'120'},
+          {prop:'price',label:'价格（元）',width:'120'},
+          {prop:'isOften',label:'是否常用',width:'120'},
+          {prop:'type',label:'商品类别',width:'120'},
+        ],
         centerDialogVisible: false,
         id: '',
         page: 1,
@@ -82,11 +61,11 @@
       this.query();
     },
     methods: {
-      formatIsOften: function (row, column) {
-        return row.isOften == 1 ? '常用' : '不常用'
+      formatIsOften: function (value) {
+        return value == 1 ? '常用' : '不常用'
       },
-      formatType: function (row, column) {
-        return row.type === 0 ? '汉堡' : row.type === 1 ? '小吃' : row.type === 2 ? '饮品' : '套餐';
+      formatType: function (value) {
+        return value === 0 ? '汉堡' : value === 1 ? '小吃' : value === 2 ? '饮品' : '套餐';
       },
 
       query() {
@@ -95,7 +74,12 @@
           size: 10
         })
           .then(response => {
-            this.goodsList = response.data.data;
+            let goodsArr = response.data.data;
+            for (let item of goodsArr){
+              item.isOften = this.formatIsOften(item.isOften);
+              item.type = this.formatType(item.type);
+            }
+            this.goodsList = goodsArr;
             this.total = response.data.total;
           })
           .catch(error => {
@@ -163,10 +147,6 @@
     width: 1100px;
     margin: 20px auto;
     background-color: #fff;
-  }
-
-  .list_table {
-    padding: 15px;
   }
 
   .goods_add {

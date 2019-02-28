@@ -3,35 +3,40 @@
     <div class="user_add">
       <el-button type="primary" size="medium" plain @click="goAdd">新增</el-button>
     </div>
-    <div class="list_table">
-      <el-table
-        :data="userList"
-        border
-        style="width: 100%">
-        <el-table-column
-          prop="name"
-          label="姓名"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="userName"
-          label="用户名"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="identity"
-          label="身份"
-          width="120"
-          :formatter="formatIdentity">
-        </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button type="danger" @click="showDel(scope.row)" size="mini">删除</el-button>
-            <el-button type="primary" @click="editor(scope.row)" size="mini">编辑</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
+    <!--<div class="list_table">-->
+      <!--<el-table-->
+        <!--:data="userList"-->
+        <!--border-->
+        <!--style="width: 100%">-->
+        <!--<el-table-column-->
+          <!--prop="name"-->
+          <!--label="姓名"-->
+          <!--width="120">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+          <!--prop="userName"-->
+          <!--label="用户名"-->
+          <!--width="120">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+          <!--prop="identity"-->
+          <!--label="身份"-->
+          <!--width="120"-->
+          <!--:formatter="formatIdentity">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column label="操作">-->
+          <!--<template slot-scope="scope">-->
+            <!--<el-button type="danger" @click="showDel(scope.row)" size="mini">删除</el-button>-->
+            <!--<el-button type="primary" @click="editor(scope.row)" size="mini">编辑</el-button>-->
+          <!--</template>-->
+        <!--</el-table-column>-->
+      <!--</el-table>-->
+    <!--</div>-->
+    <listTable
+      :list="userList"
+      :headerList="headerList"
+      @editor="editor"
+      @showDel="showDel"></listTable>
     <div class="paging">
       <div class="block">
         <el-pagination
@@ -62,11 +67,18 @@
   import url from '@/serviceAPI.config.js'
   import axios from 'axios';
 
+  import listTable from '../../common/listTable'
   export default {
     name: "userList",
+    components:{listTable},
     data(){
       return{
         userList:[],
+        headerList:[
+          {prop:'name',label:'姓名',width:'120'},
+          {prop:'userName',label:'用户名',width:'120'},
+          {prop:'identity',label:'身份',width:'120'},
+        ],
         centerDialogVisible: false,
         page:1,
         id: '',
@@ -78,8 +90,8 @@
     },
 
     methods:{
-      formatIdentity: function (row, column) {
-        return row.identity == 1 ? '管理员' : '游客'
+      formatIdentity: function (val) {
+        return val == 1 ? '管理员' : '游客'
       },
 
       query(){
@@ -88,7 +100,11 @@
           size: 10
         })
           .then(response => {
-            this.userList = response.data.data;
+            let userArr = response.data.data;
+            for (let item of userArr){
+              item.identity = this.formatIdentity(item.identity);
+            }
+            this.userList = userArr;
             this.total = response.data.total;
           })
           .catch(error => {
@@ -156,10 +172,6 @@
     width: 1100px;
     margin: 20px auto;
     background-color: #fff;
-  }
-
-  .list_table {
-    padding: 15px;
   }
 
   .user_add {
