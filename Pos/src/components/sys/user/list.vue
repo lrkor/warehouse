@@ -3,35 +3,6 @@
     <div class="user_add">
       <el-button type="primary" size="medium" plain @click="goAdd">新增</el-button>
     </div>
-    <!--<div class="list_table">-->
-      <!--<el-table-->
-        <!--:data="userList"-->
-        <!--border-->
-        <!--style="width: 100%">-->
-        <!--<el-table-column-->
-          <!--prop="name"-->
-          <!--label="姓名"-->
-          <!--width="120">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--prop="userName"-->
-          <!--label="用户名"-->
-          <!--width="120">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--prop="identity"-->
-          <!--label="身份"-->
-          <!--width="120"-->
-          <!--:formatter="formatIdentity">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column label="操作">-->
-          <!--<template slot-scope="scope">-->
-            <!--<el-button type="danger" @click="showDel(scope.row)" size="mini">删除</el-button>-->
-            <!--<el-button type="primary" @click="editor(scope.row)" size="mini">编辑</el-button>-->
-          <!--</template>-->
-        <!--</el-table-column>-->
-      <!--</el-table>-->
-    <!--</div>-->
     <listTable
       :list="userList"
       :headerList="headerList"
