@@ -5,12 +5,8 @@
 </template>
 
 <script>
-  import leftNav from '@/components/common/leftnav'
   export default {
     name: 'App',
-    components: {
-      leftNav
-    }
   }
 </script>
 
@@ -23,4 +19,5 @@
   html,body,#app{
     height: 100%;
   }
+
 </style>
