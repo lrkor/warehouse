@@ -43,7 +43,7 @@
             type: 'warning'
           });
         } else {
-          axios.post(url.registered, {
+          axios.post(url.user.registered, {
             userName: this.name,
             password: this.pwd
           }).then(response => {
@@ -81,7 +81,7 @@
             type: 'warning'
           });
         } else {
-          axios.post(url.login, {
+          axios.post(url.user.login, {
             userName: this.name,
             password: this.pwd,
             type:0    //1为后台 0为前台上

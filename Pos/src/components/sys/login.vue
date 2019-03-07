@@ -37,7 +37,7 @@
             type: 'warning'
           });
         } else {
-          axios.post(url.login, {
+          axios.post(url.user.login, {
             userName: this.name,
             password: this.pwd,
             type:1    //1为后台 0为前台上

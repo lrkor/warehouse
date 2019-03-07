@@ -1,21 +1,21 @@
 <template>
-  <div class="list">
+  <div class="add">
     <div class="nav"><span class="goBack" @click="goBack">商品管理</span> / 新增</div>
     <div class="add-goods">
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="商品名称">
+      <el-form ref="form" :model="form" label-width="90px">
+        <el-form-item label="商品名称：">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="商品价格">
+        <el-form-item label="商品价格：">
           <el-input v-model="form.price"></el-input>
         </el-form-item>
-        <el-form-item label="常用商品">
+        <el-form-item label="常用商品：">
           <el-select v-model="form.isOften" placeholder="请选择">
             <el-option label="是" value="1"></el-option>
             <el-option label="否" value="0"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="商品类别">
+        <el-form-item label="商品类别：">
           <el-select v-model="form.type" placeholder="请选择">
             <el-option label="汉堡" value="0"></el-option>
             <el-option label="饮料" value="1"></el-option>
@@ -23,7 +23,7 @@
             <el-option label="套餐" value="3"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="商品图片">
+        <el-form-item label="商品图片：">
           <el-upload
             class="upload-demo"
             :action="uploadUrl"

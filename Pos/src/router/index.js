@@ -19,6 +19,8 @@ import goodsList from '@/components/sys/goods/list'
 import goodsAdd from '@/components/sys/goods/add'
 import goodsUpdate from '@/components/sys/goods/update'
 import userList from '@/components/sys/user/list'
+import userAdd from '@/components/sys/user/add'
+import userUpdate from '@/components/sys/user/update'
 import orderList from '@/components/sys/order/list'
 
 
@@ -44,6 +46,8 @@ export default new Router({
         {path: 'goods/add', name: 'goodsAdd', component: goodsAdd},
         {path: 'goods/update/:id', name: 'goodsUpdate', component: goodsUpdate},
         {path: 'user/list', name: 'userList', component: userList},
+        {path: 'user/add', name: 'userAdd', component: userAdd},
+        {path: 'user/update', name: 'userUpdate', component: userUpdate},
         {path: 'order/list', name: 'orderList', component: orderList},
       ]
     }

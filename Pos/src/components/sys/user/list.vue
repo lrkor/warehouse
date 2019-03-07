@@ -84,7 +84,7 @@
       },
 
       goAdd() {
-        this.$router.push({path: '/sys/goods/add'});
+        this.$router.push({path: '/sys/user/add'});
       },
 
       showDel(row) {
@@ -116,7 +116,7 @@
       editor(row) {
         let id = row.id;
         this.$router.push({
-          path: `/sys/goods/update/${id}`,
+          path: `/sys/user/update/${id}`,
         })
       },
 

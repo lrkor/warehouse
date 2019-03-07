@@ -197,7 +197,7 @@
     },
     created: function () {
       //获取常用商品
-      axios.post(url.oftenQuery)
+      axios.post(url.goods.oftenQuery)
         .then(response => {
           this.oftenGoods = response.data.data;
         })
@@ -207,7 +207,7 @@
 
       //获取商品菜单内容
       for (let i = 0; i < 4; i++) {
-        axios.post(url.menuQuery, {
+        axios.post(url.goods.menuQuery, {
           type: i
         })
           .then(response => {
