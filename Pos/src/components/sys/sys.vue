@@ -1,7 +1,28 @@
 <template>
   <div>
     <el-container style="height: 100%">
-      <el-header style="background-color: #393D49;line-height: 60px;font-weight: 700;color: #fff">后台管理</el-header>
+      <el-header style="">
+        <div class="header_left">
+          后台管理
+        </div>
+        <div class="header_right">
+          <div class="phone">
+            <img src="../../assets/img/touxiang.jpg" alt="头像">
+          </div>
+          <div class="personal">
+            <el-dropdown size="medium" trigger="click">
+            <span class="el-dropdown-link">
+              <span class="fff">小心心</span><i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>个人资料</el-dropdown-item>
+                <el-dropdown-item><span @click="seeGouwu">购物车</span></el-dropdown-item>
+                <el-dropdown-item><span @click="ckOut">退出登录</span></el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </div>
+      </el-header>
       <el-container>
         <el-aside width="200px">
           <el-menu style="height: 100%"
@@ -77,8 +98,26 @@
     height: 100%;
   }
 
+  .phone{
+    display: flex;
+  }
+
+  .phone img{
+    width: 30px;
+    height: 30px;
+  }
+
+  .fff{
+    color: #ffffff;
+  }
+
   .el-submenu .el-menu-item {
     min-width: auto !important;
+  }
+  .el-header {
+    background-color: #393D49;
+    display: flex;
+    justify-content: space-between;
   }
 
   .el-main {
@@ -92,5 +131,12 @@
 
   .el-menu-item.is-active a {
     color: #fff !important;
+  }
+
+  .header_left{
+    background-color: #393D49;
+    line-height: 60px;
+    font-weight: 700;
+    color: #fff;
   }
 </style>
