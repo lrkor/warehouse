@@ -2,7 +2,7 @@
   <div>
     <div class="head">
       <div class="head_left fl">
-          <p>一点商家官网</p>
+          <p></p>
       </div>
       <div class="head_right fr">
         <div class="img fl">
