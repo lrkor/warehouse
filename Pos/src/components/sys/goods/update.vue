@@ -70,7 +70,7 @@
       //获取传入的参数
       let param = this.$route.params;
       let id = param.id;
-      axios.get(url.goodsGet, {
+      axios.get(url.goods.goodsGet, {
         params: {
           id: id
         }
@@ -94,7 +94,7 @@
         this.$router.go(-1);
       },
       onSubmit() {
-        axios.post(url.goodsAdd, {
+        axios.post(url.goods.goodsAdd, {
           data: this.form
         })
           .then(response => {

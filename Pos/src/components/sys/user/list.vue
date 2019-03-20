@@ -66,7 +66,7 @@
       },
 
       query(){
-        axios.post(url.userQuery, {
+        axios.post(url.user.userQuery, {
           page: this.page,
           size: 10
         })

@@ -4,7 +4,7 @@ const URL = {
   user:{
     login: LOCALURL + 'user/login',  //用户登录接口
     registered: LOCALURL + 'user/registered',  //用户注册接口
-    userQuery: LOCALURL + 'user/query',  //用户注册接口
+    userQuery: LOCALURL + 'user/query',  //用户列表
     userDelete: LOCALURL + 'user/delete',  //用户注册接口
   },
 

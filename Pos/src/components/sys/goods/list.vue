@@ -69,7 +69,7 @@
       },
 
       query() {
-        axios.post(url.goodsQuery, {
+        axios.post(url.goods.goodsQuery, {
           page: this.page,
           size: 10
         })
@@ -99,7 +99,7 @@
       del() {
         let id = this.id;
         this.centerDialogVisible = false;
-        axios.post(url.goodsDelete, {
+        axios.post(url.good.goodsDelete, {
           id: id,
         })
           .then(response => {

@@ -69,7 +69,7 @@
         this.$router.go(-1);
       },
       onSubmit() {
-        axios.post(url.goodsAdd, {
+        axios.post(url.goods.goodsAdd, {
           data: this.form
         })
           .then(response => {
