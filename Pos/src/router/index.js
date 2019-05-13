@@ -47,7 +47,7 @@ export default new Router({
         {path: 'goods/update/:id', name: 'goodsUpdate', component: goodsUpdate},
         {path: 'user/list', name: 'userList', component: userList},
         {path: 'user/add', name: 'userAdd', component: userAdd},
-        {path: 'user/update', name: 'userUpdate', component: userUpdate},
+        {path: 'user/update/:id', name: 'userUpdate', component: userUpdate},
         {path: 'order/list', name: 'orderList', component: orderList},
       ]
     }

@@ -122,7 +122,7 @@
 
   .el-main {
     background-color: #f4f1f4;
-    padding: 0 !important;
+    padding: 15px !important;
   }
 
   .el-menu-item.is-active {

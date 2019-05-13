@@ -104,6 +104,9 @@
 </script>
 
 <style scoped>
+  .add {
+    background-color: #fff;
+  }
   .nav{
     background-color: #fff;
     padding: 15px 20px;
@@ -113,8 +116,6 @@
     color: #2084da;
   }
   .add-goods {
-    width: 1100px;
-    margin: 20px auto;
     padding: 20px 0;
     background-color: #fff;
   }

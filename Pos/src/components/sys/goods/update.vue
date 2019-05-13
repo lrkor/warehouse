@@ -129,6 +129,9 @@
 </script>
 
 <style scoped>
+  .list{
+    background-color: #fff;
+  }
   .nav{
     background-color: #fff;
     padding: 15px 20px;
