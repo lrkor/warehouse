@@ -15,9 +15,7 @@
 </template>
 <script>
   import url from '@/serviceAPI.config.js'
-  // let request = require('@/request.js');
   import {get, post} from '@/request.js'
-
   export default {
     data() {
       return {
