@@ -14,9 +14,10 @@
   </div>
 </template>
 <script>
-  import axios from 'axios';
   import url from '@/serviceAPI.config.js'
-  import request from '@/request.js'
+  // let request = require('@/request.js');
+  import {get, post} from '@/request.js'
+
   export default {
     data() {
       return {
@@ -26,7 +27,7 @@
       }
     },
     methods: {
-      isLogin: function () {
+      async isLogin() {
         if (this.name == '') {
           this.$message({
             message: '账号不能不空!',
@@ -38,32 +39,24 @@
             type: 'warning'
           });
         } else {
-          axios.post(url.user.login, {
+          let data = {
             userName: this.name,
             password: this.pwd,
-            type:1    //1为后台 0为前台上
-          })
-            .then(response => {
-              let data = response.data;
-              if (data.code == '200') {
-                this.$message({
-                  message: '登录成功!',
-                  type: 'success'
-                });
-                this.$router.push({path: 'sys'});
-              } else {
-                this.$message({
-                  message: data.message,
-                  type: 'warning'
-                });
-              }
-            })
-            .catch(error => {
-              this.$message({
-                message: '网络错误!',
-                type: 'error'
-              });
+            type: 1    //1为后台 0为前台上
+          };
+          let res = await post(url.user.login, data);
+          if (res.code == '200') {
+            this.$message({
+              message: '登录成功!',
+              type: 'success'
             });
+            this.$router.push({path: 'sys'});
+          } else {
+            this.$message({
+              message: res.message,
+              type: 'warning'
+            });
+          }
         }
       },
       entLogin: function (ev) {
@@ -71,6 +64,7 @@
           this.isLogin();
         }
       },
+
     }
   }
 </script>
@@ -87,7 +81,7 @@
     padding-top: 200px;
   }
 
-  .login_main >div{
+  .login_main > div {
     text-align: center;
   }
 
