@@ -16,6 +16,7 @@
 <script>
   import axios from 'axios';
   import url from '@/serviceAPI.config.js'
+  import request from '@/request.js'
   export default {
     data() {
       return {
