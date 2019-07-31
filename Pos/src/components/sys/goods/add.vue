@@ -47,7 +47,7 @@
 
 <script>
   import url from '@/serviceAPI.config.js'
-  import axios from 'axios';
+  import {post} from '@/request.js'
 
   export default {
     name: "add",
@@ -68,25 +68,20 @@
       goBack(){
         this.$router.go(-1);
       },
-      onSubmit() {
-        axios.post(url.goods.goodsAdd, {
-          data: this.form
-        })
-          .then(response => {
-            let data = response.data;
-            if (data.code == '200') {
+      async onSubmit() {
+          let res = await post(url.goods.add,{data: this.form});
+          if (res.code === '200') {
               this.$message({
-                message: '添加成功!',
-                type: 'success'
+                  message: '添加成功!',
+                  type: 'success'
               });
               this.$router.go(-1);
-            } else {
+          } else {
               this.$message({
-                message: '添加失败!',
-                type: 'warning'
+                  message: '添加失败!',
+                  type: 'warning'
               });
-            }
-          })
+          }
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);

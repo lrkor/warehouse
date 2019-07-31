@@ -36,7 +36,7 @@
 
 <script>
   import url from '@/serviceAPI.config.js'
-  import axios from 'axios';
+  import {post} from '@/request.js'
 
   import listTable from '../../common/listTable'
 
@@ -68,23 +68,15 @@
         return value === 0 ? '汉堡' : value === 1 ? '小吃' : value === 2 ? '饮品' : '套餐';
       },
 
-      query() {
-        axios.post(url.goods.goodsQuery, {
-          page: this.page,
-          size: 10
-        })
-          .then(response => {
-            let goodsArr = response.data.data;
-            for (let item of goodsArr){
+      async query() {
+          let res = await post(url.goods.query,{page: this.page, size: 10});
+          let goodsArr = res.data;
+          for (let item of goodsArr){
               item.isOften = this.formatIsOften(item.isOften);
               item.type = this.formatType(item.type);
-            }
-            this.goodsList = goodsArr;
-            this.total = response.data.total;
-          })
-          .catch(error => {
-            this.$message.error('网络错误');
-          });
+          }
+          this.goodsList = goodsArr;
+          this.total = res.total;
       },
 
       goAdd() {

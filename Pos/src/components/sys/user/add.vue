@@ -7,9 +7,11 @@
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="登录账号：">
-          <el-input v-model="form.userName"></el-input>
+          <el-input v-model="form.userName" ></el-input>
+          <el-input style="position: fixed;bottom: -99999px"></el-input>
         </el-form-item>
         <el-form-item label="登录密码：" prop="pass">
+          <el-input type="password" style="position: fixed;bottom: -99999px"></el-input>
           <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="身份类型：">
@@ -48,7 +50,6 @@
                 this.$router.go(-1);
             },
             async onSubmit() {
-                console.log(this.form);
                 let res = await post(url.user.add, {data: this.form});
                 if (res.code == '200') {
                     this.$message({

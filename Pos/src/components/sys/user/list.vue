@@ -37,7 +37,6 @@
 <script>
     import url from '@/serviceAPI.config.js'
     import {post} from '@/request.js'
-
     import listTable from '../../common/listTable'
 
     export default {
