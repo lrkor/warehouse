@@ -13,9 +13,9 @@
           <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="身份类型：">
-          <el-select v-model="form.type" placeholder="请选择">
-            <el-option label="管理员" value="0"></el-option>
-            <el-option label="游客" value="3"></el-option>
+          <el-select v-model="form.identity" placeholder="请选择">
+            <el-option label="管理员" value="1"></el-option>
+            <el-option label="游客" value="0"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -28,62 +28,60 @@
 </template>
 
 <script>
-  import url from '@/serviceAPI.config.js'
-  import axios from 'axios';
+    import url from '@/serviceAPI.config.js'
+    import {post} from '@/request.js'
 
-  export default {
-    name: "add",
-    data() {
-      return {
-        form: {
-          name: '',
-          userName: '',
-          password: '',
-          type: ''
-        }
-      }
-    },
-    methods: {
-      goBack(){
-        this.$router.go(-1);
-      },
-      onSubmit() {
-        console.log(this.form);
-        // axios.post(url.goodsAdd, {
-        //   data: this.form
-        // })
-        //   .then(response => {
-        //     let data = response.data;
-        //     if (data.code == '200') {
-        //       this.$message({
-        //         message: '添加成功!',
-        //         type: 'success'
-        //       });
-        //       this.$router.go(-1);
-        //     } else {
-        //       this.$message({
-        //         message: '添加失败!',
-        //         type: 'warning'
-        //       });
-        //     }
-        //   })
-      },
-    },
-  }
+    export default {
+        name: "add",
+        data() {
+            return {
+                form: {
+                    name: '',
+                    userName: '',
+                    password: '',
+                    identity: ''
+                }
+            }
+        },
+        methods: {
+            goBack() {
+                this.$router.go(-1);
+            },
+            async onSubmit() {
+                console.log(this.form);
+                let res = await post(url.user.add, {data: this.form});
+                if (res.code == '200') {
+                    this.$message({
+                        message: '添加成功!',
+                        type: 'success'
+                    });
+                    this.$router.go(-1);
+                } else {
+                    this.$message({
+                        message: '添加失败!',
+                        type: 'warning'
+                    });
+                }
+            },
+        },
+    }
 </script>
 
 <style scoped>
   .add {
     background-color: #fff;
   }
-  .nav{
+
+  .nav {
     background-color: #fff;
     padding: 15px 20px;
   }
-  .goBack:hover{
+
+  .goBack:hover {
     cursor: pointer;
     color: #2084da;
   }
+
   .add-user {
     padding: 20px 0;
     background-color: #fff;

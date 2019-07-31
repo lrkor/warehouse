@@ -4,8 +4,9 @@ const URL = {
   user:{
     login: LOCALURL + 'user/login',  //用户登录接口
     registered: LOCALURL + 'user/registered',  //用户注册接口
-    userQuery: LOCALURL + 'user/query',  //用户列表
-    userDelete: LOCALURL + 'user/delete',  //用户注册接口
+    query: LOCALURL + 'user/query',  //用户列表
+    delete: LOCALURL + 'user/delete',  //用户删除
+    add: LOCALURL + 'user/add',  //用户新增
   },
 
   //商品

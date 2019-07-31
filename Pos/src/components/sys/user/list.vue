@@ -35,107 +35,101 @@
 </template>
 
 <script>
-  import url from '@/serviceAPI.config.js'
-  import axios from 'axios';
+    import url from '@/serviceAPI.config.js'
+    import {post} from '@/request.js'
 
-  import listTable from '../../common/listTable'
-  export default {
-    name: "userList",
-    components:{listTable},
-    data(){
-      return{
-        userList:[],
-        headerList:[
-          {prop:'name',label:'姓名',width:'120'},
-          {prop:'userName',label:'用户名',width:'120'},
-          {prop:'identity',label:'身份',width:'120'},
-        ],
-        centerDialogVisible: false,
-        page:1,
-        id: '',
-        total: 0,
-      }
-    },
-    created() {
-      this.query();
-    },
+    import listTable from '../../common/listTable'
 
-    methods:{
-      formatIdentity: function (val) {
-        return val == 1 ? '管理员' : '游客'
-      },
-
-      query(){
-        axios.post(url.user.userQuery, {
-          page: this.page,
-          size: 10
-        })
-          .then(response => {
-            let userArr = response.data.data;
-            for (let item of userArr){
-              item.identity = this.formatIdentity(item.identity);
+    export default {
+        name: "userList",
+        components: {listTable},
+        data() {
+            return {
+                userList: [],
+                headerList: [
+                    {prop: 'name', label: '姓名', width: '120'},
+                    {prop: 'userName', label: '用户名', width: '120'},
+                    {prop: 'identity', label: '身份', width: '120'},
+                ],
+                centerDialogVisible: false,
+                page: 1,
+                id: '',
+                total: 0,
             }
-            this.userList = userArr;
-            this.total = response.data.total;
-          })
-          .catch(error => {
-            this.$message.error('网络错误');
-          });
-      },
+        },
+        created() {
+            this.query();
+        },
 
-      goAdd() {
-        this.$router.push({path: '/sys/user/add'});
-      },
+        methods: {
+            formatIdentity: function (val) {
+                return val === 1 ? '管理员' : '游客'
+            },
+            async query() {
+                let res = await post(url.user.query, {page: this.page, size: 10});
+                let userArr = res.data;
+                for (let item of userArr){
+                    item.identity = this.formatIdentity(item.identity);
+                }
+                this.userList = userArr;
+                this.total = res.total;
+            },
 
-      showDel(row) {
-        this.centerDialogVisible = true;
-        this.id = row.id;
-      },
+            goAdd() {
+                this.$router.push({path: '/sys/user/add'});
+            },
 
-      del() {
-        let id = this.id;
-        this.centerDialogVisible = false;
-        axios.post(url.userDelete, {
-          id: id,
-        })
-          .then(response => {
-            let data = response.data;
-            if (data.code == '200') {
-              this.$message({
-                message: '删除成功!',
-                type: 'success'
-              });
-              this.query();
+            showDel(row) {
+                this.centerDialogVisible = true;
+                this.id = row.id;
+            },
+
+            async del() {
+                let id = this.id;
+                this.centerDialogVisible = false;
+                let res = await post(url.userDelete,{id});
+                let data = res.data;
+                // axios.post(url.userDelete, {
+                //     id: id,
+                // })
+                //     .then(response => {
+                //         let data = response.data;
+                //         if (data.code == '200') {
+                //             this.$message({
+                //                 message: '删除成功!',
+                //                 type: 'success'
+                //             });
+                //             this.query();
+                //         }
+                //     })
+                //     .catch(error => {
+                //         this.$message.error('网络错误');
+                //     });
+            },
+
+            editor(row) {
+                let id = row.id;
+                this.$router.push({
+                    path: `/sys/user/update/${id}`,
+                })
+            },
+
+            sizeChange(val) {
+                this.page = val;
+                this.query();
+            },
+
+            sizePrev() {
+                this.page = this.page - 1;
+                this.query();
+            },
+
+            sizeNext() {
+                this.page = this.page + 1;
+                this.query();
             }
-          })
-          .catch(error => {
-            this.$message.error('网络错误');
-          });
-      },
-
-      editor(row) {
-        let id = row.id;
-        this.$router.push({
-          path: `/sys/user/update/${id}`,
-        })
-      },
-
-      sizeChange(val) {
-        this.page = val;
-        this.query();
-      },
-
-      sizePrev() {
-        this.page = this.page - 1;
-        this.query();
-      },
-
-      sizeNext() {
-        this.page = this.page + 1;
-        this.query();
-      }
-    },
-  }
+        },
+    }
 </script>
 
 <style scoped>

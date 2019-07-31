@@ -62,7 +62,7 @@ router.post('/registered', async (ctx) => {
   let json = {};
   let data = await query(sqlString);
   if(data.length==0){
-    let sqlAdd = `INSERT INTO user (user_name,password)VALUES ('${userName}','${password}')`;
+    let sqlAdd = `INSERT INTO user (user_name,password) VALUES ('${userName}','${password}')`;
     let data1 = await query(sqlAdd);
     console.log(data1);
     json = {
@@ -118,5 +118,20 @@ router.post('/delete', async (ctx) => {
   ctx.set("Content-Type", "application/json");
   ctx.body = JSON.stringify(json);
 });
+
+//新增用户
+router.post('/add', async (ctx) => {
+  let {userName,password,name,identity} = ctx.request.body.data;
+  let sqlAdd = `INSERT INTO user (name,user_name,password,identity) VALUES ('${name}','${userName}','${password}','${identity}')`;
+  let data = await query(sqlAdd);
+  let json = {
+    code: '200',
+    status: 'success',
+    message: '新增成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
 
 module.exports = router;
