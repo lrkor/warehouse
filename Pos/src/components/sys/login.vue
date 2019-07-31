@@ -1,70 +1,77 @@
 <template>
-  <div id="login" @keyup="entLogin">
+  <div id="login">
     <div class="login_main">
-      <div>
-        <el-input v-model="name" size="large" style="width: 300px;height: 48px" placeholder="请输入账号"></el-input>
-      </div>
-      <div>
-        <el-input v-model="pwd" style="width: 300px;height: 48px" type="password" placeholder="请输入密码"></el-input>
-      </div>
-      <div>
-        <el-button type="success" style="width: 300px;height: 42px" @click="isLogin">登录</el-button>
-      </div>
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="账号" prop="userName">
+          <el-input v-model="ruleForm.userName" placeholder="请输入账号"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="ruleForm.password" type="password" placeholder="请输入密码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
 <script>
-  import url from '@/serviceAPI.config.js'
-  import {get, post} from '@/request.js'
-  export default {
-    data() {
-      return {
-        name: '',
-        pwd: '',
-        error: ''
-      }
-    },
-    methods: {
-      async isLogin() {
-        if (this.name == '') {
-          this.$message({
-            message: '账号不能不空!',
-            type: 'warning'
-          });
-        } else if (this.pwd == '') {
-          this.$message({
-            message: '密码不能为空!',
-            type: 'warning'
-          });
-        } else {
-          let data = {
-            userName: this.name,
-            password: this.pwd,
-            type: 1    //1为后台 0为前台上
-          };
-          let res = await post(url.user.login, data);
-          if (res.code == '200') {
-            this.$message({
-              message: '登录成功!',
-              type: 'success'
-            });
-            this.$router.push({path: 'sys'});
-          } else {
-            this.$message({
-              message: res.message,
-              type: 'warning'
-            });
-          }
-        }
-      },
-      entLogin: function (ev) {
-        if (ev.keyCode == 13) {
-          this.isLogin();
-        }
-      },
+    import url from '@/serviceAPI.config.js'
+    import {post} from '@/request.js'
 
+    export default {
+        data() {
+            return {
+                ruleForm: {
+                    userName: '',
+                    password: '',
+                },
+                rules: {
+                    userName: [
+                        {required: true, message: '请输入账号', trigger: 'change'},
+                    ],
+                    password: [
+                        {required: true, message: '请输入密码', trigger: 'change'}
+                    ]
+                }
+            }
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        console.log(1);
+                        let data = {
+                            userName: this.ruleForm.userName,
+                            password: this.ruleForm.password,
+                            type: 1    //1为后台 0为前台上
+                        };
+                        post(url.user.login, data).then(res => {
+                            if (res.code == '200') {
+                                this.$message({
+                                    message: '登录成功!',
+                                    type: 'success'
+                                });
+                                this.$router.push({path: 'sys'});
+                            } else {
+                                this.$message({
+                                    message: res.message,
+                                    type: 'warning'
+                                });
+                            }
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            }
+        }
     }
-  }
 </script>
 <style scoped>
   #login {
@@ -81,6 +88,9 @@
 
   .login_main > div {
     text-align: center;
+  }
+  .el-button{
+    width: 192px;
   }
 
 
