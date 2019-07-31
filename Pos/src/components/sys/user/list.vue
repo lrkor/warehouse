@@ -68,7 +68,7 @@
             async query() {
                 let res = await post(url.user.query, {page: this.page, size: 10});
                 let userArr = res.data;
-                for (let item of userArr){
+                for (let item of userArr) {
                     item.identity = this.formatIdentity(item.identity);
                 }
                 this.userList = userArr;
@@ -87,8 +87,14 @@
             async del() {
                 let id = this.id;
                 this.centerDialogVisible = false;
-                let res = await post(url.userDelete,{id});
-                let data = res.data;
+                let res = await post(url.user.delete, {id});
+                if (res.code === '200') {
+                    this.$message({
+                        message: '删除成功!',
+                        type: 'success'
+                    });
+                    this.query();
+                }
                 // axios.post(url.userDelete, {
                 //     id: id,
                 // })
