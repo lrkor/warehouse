@@ -35,103 +35,95 @@
 </template>
 
 <script>
-  import url from '@/serviceAPI.config.js'
-  import {post} from '@/request.js'
+    import url from '@/serviceAPI.config.js'
+    import {post} from '@/request.js'
 
-  import listTable from '../../common/listTable'
+    import listTable from '../../common/listTable'
 
-  export default {
-    components:{listTable},
-    data() {
-      return {
-        goodsList: [],
-        headerList:[
-          {prop:'name',label:'名称',width:'120'},
-          {prop:'price',label:'价格（元）',width:'120'},
-          {prop:'isOften',label:'是否常用',width:'120'},
-          {prop:'type',label:'商品类别',width:'120'},
-        ],
-        centerDialogVisible: false,
-        id: '',
-        page: 1,
-        total: 0,
-      }
-    },
-    created: function () {
-      this.query();
-    },
-    methods: {
-      formatIsOften: function (value) {
-        return value == 1 ? '常用' : '不常用'
-      },
-      formatType: function (value) {
-        return value === 0 ? '汉堡' : value === 1 ? '小吃' : value === 2 ? '饮品' : '套餐';
-      },
-
-      async query() {
-          let res = await post(url.goods.query,{page: this.page, size: 10});
-          let goodsArr = res.data;
-          for (let item of goodsArr){
-              item.isOften = this.formatIsOften(item.isOften);
-              item.type = this.formatType(item.type);
-          }
-          this.goodsList = goodsArr;
-          this.total = res.total;
-      },
-
-      goAdd() {
-        this.$router.push({path: '/sys/goods/add'});
-      },
-
-      showDel(row) {
-        this.centerDialogVisible = true;
-        this.id = row.id;
-      },
-
-      del() {
-        let id = this.id;
-        this.centerDialogVisible = false;
-        axios.post(url.good.goodsDelete, {
-          id: id,
-        })
-          .then(response => {
-            let data = response.data;
-            if (data.code == '200') {
-              this.$message({
-                message: '删除成功!',
-                type: 'success'
-              });
-              this.query();
+    export default {
+        components: {listTable},
+        data() {
+            return {
+                goodsList: [],
+                headerList: [
+                    {prop: 'name', label: '名称', width: '120'},
+                    {prop: 'price', label: '价格（元）', width: '120'},
+                    {prop: 'isOften', label: '是否常用', width: '120'},
+                    {prop: 'type', label: '商品类别', width: '120'},
+                ],
+                centerDialogVisible: false,
+                id: '',
+                page: 1,
+                total: 0,
             }
-          })
-          .catch(error => {
-            this.$message.error('网络错误');
-          });
-      },
+        },
+        created: function () {
+            this.query();
+        },
+        methods: {
+            formatIsOften: function (value) {
+                return value == 1 ? '常用' : '不常用'
+            },
+            formatType: function (value) {
+                return value === 0 ? '汉堡' : value === 1 ? '小吃' : value === 2 ? '饮品' : '套餐';
+            },
 
-      editor(row) {
-        let id = row.id;
-        this.$router.push({
-          path: `/sys/goods/update/${id}`,
-        })
-      },
+            async query() {
+                let res = await post(url.goods.query, {page: this.page, size: 10});
+                let goodsArr = res.data;
+                for (let item of goodsArr) {
+                    item.isOften = this.formatIsOften(item.isOften);
+                    item.type = this.formatType(item.type);
+                }
+                this.goodsList = goodsArr;
+                this.total = res.total;
+            },
 
-      sizeChange(val) {
-        this.page = val;
-        this.query();
-      },
+            goAdd() {
+                this.$router.push({path: '/sys/goods/add'});
+            },
 
-      sizePrev() {
-        this.page = this.page - 1;
-        this.query();
-      },
+            showDel(row) {
+                this.centerDialogVisible = true;
+                this.id = row.id;
+            },
 
-      sizeNext() {
-        this.page = this.page + 1;
-        this.query();
-      }
-    },
-  }
+            async del() {
+                let id = this.id;
+                this.centerDialogVisible = false;
+                let res = await post(url.goods.delete, {id});
+                if (res.code === '200') {
+                    this.$message({
+                        message: '删除成功!',
+                        type: 'success'
+                    });
+                    this.query();
+                }
+            },
+
+            editor(row) {
+                let id = row.id;
+                this.$router.push({
+                    path: `/sys/goods/update/${id}`,
+                })
+            },
+
+            sizeChange(val) {
+                this.page = val;
+                this.query();
+            },
+
+            sizePrev() {
+                this.page = this.page - 1;
+                this.query();
+            },
+
+            sizeNext() {
+                this.page = this.page + 1;
+                this.query();
+            }
+        },
+    }
 </script>
 
 <style scoped>
