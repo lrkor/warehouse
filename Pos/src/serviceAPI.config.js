@@ -7,6 +7,8 @@ const URL = {
     query: LOCALURL + 'user/query',  //用户列表
     delete: LOCALURL + 'user/delete',  //用户删除
     add: LOCALURL + 'user/add',  //用户新增
+    get: LOCALURL + 'user/get',  //查询用户信息
+    update: LOCALURL + 'user/update',  //更新用户信息
   },
 
   //商品

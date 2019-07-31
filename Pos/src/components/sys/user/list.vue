@@ -62,7 +62,7 @@
 
         methods: {
             formatIdentity: function (val) {
-                return val === 1 ? '管理员' : '游客'
+                return val === '1' ? '管理员' : '游客'
             },
             async query() {
                 let res = await post(url.user.query, {page: this.page, size: 10});

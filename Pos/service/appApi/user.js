@@ -64,7 +64,6 @@ router.post('/registered', async (ctx) => {
   if(data.length==0){
     let sqlAdd = `INSERT INTO user (user_name,password) VALUES ('${userName}','${password}')`;
     let data1 = await query(sqlAdd);
-    console.log(data1);
     json = {
       code: '200',
       status: 'success',
@@ -105,6 +104,22 @@ router.post('/query', async (ctx) => {
   ctx.body = JSON.stringify(json);
 });
 
+//查询用户信息
+router.get('/get', async (ctx) => {
+  let id = ctx.query.id;
+  let sqlString = `SELECT * FROM user WHERE id='${id}'`;
+  let data = await query(sqlString);
+  data = fieldMap(data, keyMap);
+  let json = {
+    code: '200',
+    status: 'success',
+    data:data,
+    message: '查询成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
 //删除用户
 router.post('/delete', async (ctx) => {
   let id = ctx.request.body.id;
@@ -128,6 +143,20 @@ router.post('/add', async (ctx) => {
     code: '200',
     status: 'success',
     message: '新增成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
+//更新用户信息
+router.post('/update', async (ctx) => {
+  let obj = ctx.request.body.data;
+  let sqlString = `UPDATE user SET name = '${obj.name}', user_name = '${obj.userName}',password = '${obj.password}',identity = '${obj.identity}' WHERE id = '${obj.id}'`;
+  let data = await query(sqlString);
+  let json = {
+    code: '200',
+    status: 'success',
+    message: '修改成功'
   };
   ctx.set("Content-Type", "application/json");
   ctx.body = JSON.stringify(json);

@@ -30,8 +30,52 @@
 </template>
 
 <script>
+    import url from '@/serviceAPI.config.js'
+    import {get , post} from '@/request.js'
     export default {
-        name: "update"
+        name: "update",
+        data() {
+            return {
+                id:'',
+                form: {
+                    name: '',
+                    userName: '',
+                    password: '',
+                    identity: ''
+                }
+            }
+        },
+        created(){
+            //获取传入的参数
+            let param = this.$route.params;
+            let id = param.id;
+            this.id = id;
+            this.get(id);
+        },
+        methods: {
+            async get(id){
+                let res = await get(url.user.get,{id});
+                this.form = res.data[0];
+            },
+            goBack() {
+                this.$router.go(-1);
+            },
+            async onSubmit() {
+                let res = await post(url.user.update, {data: this.form});
+                if (res.code == '200') {
+                    this.$message({
+                        message: '修改成功!',
+                        type: 'success'
+                    });
+                    this.$router.go(-1);
+                } else {
+                    this.$message({
+                        message: '修改失败!',
+                        type: 'warning'
+                    });
+                }
+            },
+        },
     }
 </script>
 
