@@ -17,6 +17,7 @@ const URL = {
     delete: LOCALURL + 'goods/delete',  //删除单个商品
     get: LOCALURL + 'goods/get',  //查询单个商品
     add: LOCALURL + 'goods/add',  // 新增商品
+    update: LOCALURL + 'goods/update',  // 更新商品
   },
 
   // 公用

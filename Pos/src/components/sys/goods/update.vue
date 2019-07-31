@@ -47,99 +47,93 @@
 </template>
 
 <script>
-  import url from '@/serviceAPI.config.js'
-  import axios from 'axios';
+    import url from '@/serviceAPI.config.js'
+    import {get , post} from '@/request.js'
 
-  export default {
-    name: "update",
-    data() {
-      return {
-        fileList: [],
-        uploadUrl: url.upload,
-        form: {
-          name: '',
-          price: '',
-          imgUrl: '',
-          isOften: '',
-          type: ''
-        }
-      }
-    },
-    //数据初始化完毕自动调用方法
-    created() {
-      //获取传入的参数
-      let param = this.$route.params;
-      let id = param.id;
-      axios.get(url.goods.goodsGet, {
-        params: {
-          id: id
-        }
-      })
-        .then(response => {
-          this.form = response.data.data[0];
-          let arr = [
-            {
-              name:response.data.data[0].name,
-              url:response.data.data[0].imgUrl
+    export default {
+        name: "update",
+        data() {
+            return {
+                fileList: [],
+                id:'',
+                uploadUrl: url.upload,
+                form: {
+                    name: '',
+                    price: '',
+                    imgUrl: '',
+                    isOften: '1',
+                    type: '1'
+                }
             }
-          ];
-          this.fileList = arr;
-        })
-        .catch(error => {
-          this.$message.error('网络错误');
-        });
-    },
-    methods: {
-      goBack(){
-        this.$router.go(-1);
-      },
-      onSubmit() {
-        axios.post(url.goods.goodsAdd, {
-          data: this.form
-        })
-          .then(response => {
-            let data = response.data;
-            if (data.code == '200') {
-              this.$message({
-                message: '添加成功!',
-                type: 'success'
-              });
-              this.$router.go(-1);
-            } else {
-              this.$message({
-                message: '添加失败!',
-                type: 'warning'
-              });
+        },
+        //数据初始化完毕自动调用方法
+        created() {
+            //获取传入的参数
+            let param = this.$route.params;
+            let id = param.id;
+            this.id = id;
+            this.get(id);
+        },
+        methods: {
+            async get(id){
+                let res = await get(url.goods.get,{id});
+                this.form = res.data[0];
+                this.form.type = this.form.type.toString();
+                this.form.isOften = this.form.type.toString();
+                let arr = [
+                    {
+                        name: res.data[0].name,
+                        url: res.data[0].imgUrl
+                    }
+                ];
+                this.fileList = arr;
+            },
+            goBack() {
+                this.$router.go(-1);
+            },
+            async onSubmit() {
+                let data = this.form;
+                data.id = this.id;
+                let res = await post(url.goods.update,{data: this.form});
+                if(res.code==='200'){
+                    this.$message({
+                        message: '修改成功!',
+                        type: 'success'
+                    });
+                    this.$router.go(-1);
+                }
+
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleSuccess(file) {
+                console.log(file);
+                this.form.imgUrl = file.data.url;
+                console.log(this.form.imgUrl);
             }
-          })
-      },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-      },
-      handleSuccess(file) {
-        console.log(file);
-        this.form.imgUrl = file.data.url;
-        console.log(this.form.imgUrl);
-      }
-    },
-  }
+        },
+    }
 </script>
 
 <style scoped>
-  .list{
+  .list {
     background-color: #fff;
   }
-  .nav{
+
+  .nav {
     background-color: #fff;
     padding: 15px 20px;
   }
-  .goBack:hover{
+
+  .goBack:hover {
     cursor: pointer;
     color: #2084da;
   }
+
   .add-goods {
     width: 1100px;
     margin: 20px auto;

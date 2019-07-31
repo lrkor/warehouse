@@ -56,6 +56,20 @@ router.post('/add', async (ctx) => {
   ctx.body = JSON.stringify(json);
 });
 
+//更新商品
+router.post('/update', async (ctx) => {
+  let obj = ctx.request.body.data;
+  let sqlString = `UPDATE goods SET name = '${obj.name}', price = '${obj.price}',img_url = '${obj.imgUrl}',is_often = '${obj.isOften}',type = '${obj.type}' WHERE id = '${obj.id}'`;
+  let data = await query(sqlString);
+  let json = {
+    code: '200',
+    status: 'success',
+    message: '修改成功'
+  };
+  ctx.set("Content-Type", "application/json");
+  ctx.body = JSON.stringify(json);
+});
+
 //查询所有商品
 router.post('/query', async (ctx) => {
   let page = ctx.request.body.page;
