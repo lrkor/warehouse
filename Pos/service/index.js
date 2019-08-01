@@ -39,12 +39,14 @@ app.use(koaBody({
 //引入子路由
 let user = require('./appApi/user.js');
 let goods = require('./appApi/goods.js');
+let order = require('./appApi/order.js');
 let upload = require('./appApi/upload.js');
 
 //装载所有子路由
 let router = new Router();
 router.use('/user', user.routes());
 router.use('/goods', goods.routes());
+router.use('/order', order.routes());
 router.use('/upload', upload.routes());
 
 app.use(router.routes());

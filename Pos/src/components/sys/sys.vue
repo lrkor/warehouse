@@ -6,21 +6,6 @@
           后台管理
         </div>
         <div class="header_right">
-          <!--<div class="phone">-->
-            <!--<img src="../../assets/img/touxiang.jpg" alt="头像">-->
-          <!--</div>-->
-          <!--<div class="personal">-->
-            <!--<el-dropdown size="medium" trigger="click">-->
-            <!--<span class="el-dropdown-link">-->
-              <!--<span class="fff">小心心</span><i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
-            <!--</span>-->
-              <!--<el-dropdown-menu slot="dropdown">-->
-                <!--<el-dropdown-item>个人资料</el-dropdown-item>-->
-                <!--<el-dropdown-item><span @click="seeGouwu">购物车</span></el-dropdown-item>-->
-                <!--<el-dropdown-item><span @click="ckOut">退出登录</span></el-dropdown-item>-->
-              <!--</el-dropdown-menu>-->
-            <!--</el-dropdown>-->
-          <!--</div>-->
         </div>
       </el-header>
       <el-container>
@@ -51,9 +36,6 @@
               <el-menu-item index="/sys/goods/list" route="">
                 商品列表
               </el-menu-item>
-              <!--<el-menu-item index="/sys/goods/add" route="">-->
-                <!--添加商品-->
-              <!--</el-menu-item>-->
             </el-submenu>
 
             <el-submenu index="3">
@@ -63,7 +45,6 @@
               </template>
               <el-menu-item index="/sys/order/list" route="">
                 订单列表
-                <!--<router-link to="">订单列表</router-link>-->
               </el-menu-item>
             </el-submenu>
           </el-menu>

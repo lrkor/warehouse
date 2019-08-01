@@ -1,5 +1,4 @@
 const Router = require('koa-router');
-// const mysql = require('mysql');
 let router = new Router();
 
 //字段映射

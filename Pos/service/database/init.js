@@ -13,7 +13,6 @@ exports.query = function( sql, values ) {
         reject( err )
       } else {
         connection.query(sql, values, ( err, rows) => {
-
           if ( err ) {
             reject( err )
           } else {

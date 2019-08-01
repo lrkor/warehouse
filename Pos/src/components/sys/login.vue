@@ -19,8 +19,10 @@
 <script>
     import url from '@/serviceAPI.config.js'
     import {post} from '@/request.js'
+    import store from '@/vuex/store';
 
     export default {
+        store,
         data() {
             return {
                 ruleForm: {
@@ -41,7 +43,6 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        console.log(1);
                         let data = {
                             userName: this.ruleForm.userName,
                             password: this.ruleForm.password,

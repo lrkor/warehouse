@@ -22,6 +22,11 @@ const URL = {
     update: LOCALURL + 'goods/update',  // 更新商品
   },
 
+  //订单
+  order:{
+    add: LOCALURL + 'order/add',  //新增订单
+  },
+
   // 公用
   upload: LOCALURL + 'upload/file',  // 文件上传
 

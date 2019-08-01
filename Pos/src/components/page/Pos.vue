@@ -10,8 +10,8 @@
               <el-table-column prop="price" label="金额" width="80"></el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-button type="text" size="small" @click="delSingleGoods(scope.row)">删除</el-button>
-                  <el-button type="text" size="small" @click="addOrderList(scope.row)">增加</el-button>
+                  <el-button type="danger" size="small" @click="delSingleGoods(scope.row)">删除</el-button>
+                  <el-button type="primary" size="small" @click="addOrderList(scope.row)">增加</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -26,7 +26,7 @@
                 :total="total"
                 @current-change="sizeChange"
                 @prev-click="sizePrev"
-                @next-click="sizenext"
+                @next-click="sizeNext"
               >
               </el-pagination>
             </div>
@@ -154,253 +154,260 @@
 </template>
 
 <script>
-  import url from '@/serviceAPI.config.js'
-  import axios from 'axios';
+    import url from '@/serviceAPI.config.js'
+    import {get, post} from '@/request.js'
+    import {getNewTime} from '@/tool/tool.js'
 
-  export default {
-    name: 'pos',
-    data() {
-      return {
-        pan: 1,
-        dialogTableVisible: false,
-        total: 10,
-        totalMoney: 0,
-        totalCount: 0,
-        a: 1,
-        tableData: [],
-        pagingtableData: [],
-        oftenGoods: [],
-        type0Goods: [],
-        type1Goods: [],
-        type2Goods: [],
-        type3Goods: [],
-        cancelled: [],
-        gridData: [],
-        takeOut: [
-          {
-            order: 1,
-            money: 20,
-            details: [{name: '汉堡', count: 2, price: 25}]
-          },
-          {
-            order: 2,
-            money: 20,
-            details: [{name: '汉堡', count: 2, price: 25}]
-          },
-          {
-            order: 3,
-            money: 20,
-            details: [{name: '汉堡', count: 2, price: 25}]
-          },
-        ]
-      }
-    },
-    created: function () {
-      //获取常用商品
-      axios.post(url.goods.oftenQuery)
-        .then(response => {
-          this.oftenGoods = response.data.data;
-        })
-        .catch(error => {
-          this.$message.error('网络错误');
-        });
-
-      //获取商品菜单内容
-      for (let i = 0; i < 4; i++) {
-        axios.post(url.goods.menuQuery, {
-          type: i
-        })
-          .then(response => {
-            if (i == 0) {
-              this.type0Goods = response.data.data;
-            } else if (i == 1) {
-              this.type1Goods = response.data.data;
-            } else if (i == 2) {
-              this.type2Goods = response.data.data;
-            } else if (i == 3) {
-              this.type3Goods = response.data.data;
+    export default {
+        name: 'pos',
+        data() {
+            return {
+                pan: 1,
+                dialogTableVisible: false,
+                total: 10,
+                totalMoney: 0,
+                totalCount: 0,
+                a: 1,
+                tableData: [],
+                pagingtableData: [],
+                oftenGoods: [],
+                type0Goods: [],
+                type1Goods: [],
+                type2Goods: [],
+                type3Goods: [],
+                cancelled: [],
+                gridData: [],
+                takeOut: [
+                    {
+                        order: 1,
+                        money: 20,
+                        details: [{name: '汉堡', count: 2, price: 25}]
+                    },
+                    {
+                        order: 2,
+                        money: 20,
+                        details: [{name: '汉堡', count: 2, price: 25}]
+                    },
+                    {
+                        order: 3,
+                        money: 20,
+                        details: [{name: '汉堡', count: 2, price: 25}]
+                    },
+                ]
             }
+        },
+        created: function () {
+            //获取常用商品
+            this.getOftenGoods();
+            //获取商品菜单内容
+            this.getMenuQuery();
+        },
+        methods: {
+            //获取常用商品
+            async getOftenGoods(){
+                let res = await post(url.goods.oftenQuery);
+                this.oftenGoods = res.data;
+            },
 
-          })
-          .catch(error => {
-            this.$message.error('网络错误');
-          });
-      }
+            //获取商品菜单内容
+            async getMenuQuery(){
+                for (let i = 0; i < 4; i++) {
+                    let res = await post(url.goods.menuQuery, {type: i});
+                    if (i == 0) {
+                        this.type0Goods = res.data;
+                    } else if (i == 1) {
+                        this.type1Goods = res.data;
+                    } else if (i == 2) {
+                        this.type2Goods = res.data;
+                    } else if (i == 3) {
+                        this.type3Goods = res.data;
+                    }
+                }
+            },
+
+            //数组分页输出
+            pagination(pageNo, pageSize, array) {
+                let offset = (pageNo - 1) * pageSize;
+                return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
+            },
+            sizeChange(val) {
+                this.pan = `${val}`;
+                this.pagingtableData = this.pagination(this.pan, 8, this.tableData);
+            },
+            sizePrev() {
+                this.pan--;
+                this.pagingtableData = this.pagination(this.pan, 8, this.tableData);
+            },
+            sizeNext() {
+                this.pan++;
+                this.pagingtableData = this.pagination(this.pan, 8, this.tableData);
+            },
+            //添加订单列表的方法
+            addOrderList(goods) {
+                this.totalCount = 0; //汇总数量清0
+                this.totalMoney = 0;
+                let isHave = false;
+                //判断是否这个商品已经存在于订单列表
+                for (let i = 0; i < this.tableData.length; i++) {
+                    if (this.tableData[i].id == goods.id) {
+                        isHave = true; //存在
+                    }
+                }
+                //根据isHave的值判断订单列表中是否已经有此商品
+                if (isHave) {
+                    //存在就进行数量添加
+                    let arr = this.tableData.filter(o => o.id == goods.id);
+                    arr[0].count++;
+                } else {
+                    //不存在就推入数组
+                    let newGoods = {id: goods.id, name: goods.name, price: goods.price, count: 1};
+                    this.tableData.push(newGoods);
+                }
+
+                //将数组进行分页输出
+                this.total = Math.ceil(this.tableData.length / 8);
+                this.total = this.total * 10;
+                this.pagingtableData = this.pagination(1, 8, this.tableData);
+
+                //进行数量和价格的汇总计算
+                this.tableData.forEach((element) => {
+                    this.totalCount += element.count;
+                    this.totalMoney = this.totalMoney + (element.price * element.count);
+                });
+
+            },
+            //删除单个商品
+            delSingleGoods(goods) {
+                this.tableData = this.tableData.filter(o => o.id != goods.id);
+                this.pagingtableData = this.tableData;
+                this.getAllMoney();
+            },
+            //删除所有商品
+            delAllGoods() {
+                this.tableData = [];
+                this.pagingtableData = this.tableData;
+                this.totalCount = 0;
+                this.totalMoney = 0;
+            },
 
 
-    },
-    mounted: function () {
+            //汇总数量和金额
+            getAllMoney() {
+                this.totalCount = 0;
+                this.totalMoney = 0;
+                if (this.tableData) {
+                    this.tableData.forEach((element) => {
+                        this.totalCount += element.count;
+                        this.totalMoney = this.totalMoney + (element.price * element.count);
+                    });
+                }
 
-    },
-    methods: {
-      //数组分页输出
-      pagination(pageNo, pageSize, array) {
-        let offset = (pageNo - 1) * pageSize;
-        return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
-      },
-      sizeChange(val) {
-        this.pan = `${val}`;
-        this.pagingtableData = this.pagination(this.pan, 8, this.tableData);
-      },
-      sizePrev() {
-        this.pan--;
-        this.pagingtableData = this.pagination(this.pan, 8, this.tableData);
-      },
-      sizenext() {
-        this.pan++;
-        this.pagingtableData = this.pagination(this.pan, 8, this.tableData);
-      },
-      //添加订单列表的方法
-      addOrderList(goods) {
-        this.totalCount = 0; //汇总数量清0
-        this.totalMoney = 0;
-        let isHave = false;
-        //判断是否这个商品已经存在于订单列表
-        for (let i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].id == goods.id) {
-            isHave = true; //存在
-          }
+            },
+
+            //结账
+            checkout() {
+                if (this.totalCount != 0) {
+                    let data = {
+                        type:'0',
+                        time:getNewTime(),
+                        money:this.totalMoney,
+                        goodsData:this.pagingtableData
+                    };
+                    this.addOrder(data).then(res=>{
+                        if(res.code==='200'){
+                            this.pagingtableData = [];
+                            this.tableData = [];
+                            this.totalCount = 0;
+                            this.totalMoney = 0;
+                            this.$message({
+                                message: '结账成功，感谢你又为店里出了一份力!',
+                                type: 'success'
+                            });
+                        }
+                    });
+                } else {
+                    this.$message.error('不能空结。老板了解你急切的心情！');
+                }
+            },
+
+            //新增订单
+            async addOrder(data){
+                let res = await post(url.order.add,{data});
+                return res;
+            },
+
+            //添加挂单
+            addCancelled() {
+                let b = this.a;
+                let arr = [];
+                let money = this.totalMoney;
+                arr = this.tableData;
+                if (money == 0) {
+                    this.$message.error('不能空挂！');
+                    return;
+                }
+                let json = {
+                    order: b,
+                    money: money,
+                    details: arr
+                };
+                this.cancelled.push(json);
+                b++;
+                this.a = b;
+                this.tableData = [];
+                this.pagingtableData = this.tableData;
+                this.totalCount = 0;
+                this.totalMoney = 0;
+            },
+
+            //查看详情
+            checkDetails(goods) {
+                // let flag = false;
+                this.dialogTableVisible = true;
+                this.gridData = goods.details;
+            },
+
+            //删除单个挂单
+            delCancelled(goods) {
+                this.cancelled = this.cancelled.filter(o => o.order != goods.order);
+            },
+            //挂单结账
+            checkout1(goods) {
+                this.cancelled = this.cancelled.filter(o => o.order != goods.order);
+                this.$message({
+                    message: '挂单结账成功，感谢你又为店里出了一份力!',
+                    type: 'success'
+                });
+            },
+            //外卖查看详情
+            checkDetailsT(goods) {
+                // let flag = false;
+                this.dialogTableVisible = true;
+                this.gridData = goods.details;
+            },
+
+            //外卖删除单个挂单
+            delCancelledT(goods) {
+                this.takeOut = this.takeOut.filter(o => o.order != goods.order);
+            },
+            //外卖结账
+            checkout1T(goods) {
+                this.takeOut = this.takeOut.filter(o => o.order != goods.order);
+                this.$message({
+                    message: '挂单结账成功，感谢你又为店里出了一份力!',
+                    type: 'success'
+                });
+            },
+
         }
-        //根据isHave的值判断订单列表中是否已经有此商品
-        if (isHave) {
-          //存在就进行数量添加
-          let arr = this.tableData.filter(o => o.id == goods.id);
-          arr[0].count++;
-        } else {
-          //不存在就推入数组
-          let newGoods = {id: goods.id, name: goods.name, price: goods.price, count: 1};
-          this.tableData.push(newGoods);
-
-        }
-
-        //将数组进行分页输出
-        this.total = Math.ceil(this.tableData.length / 8);
-        this.total = this.total * 10;
-        this.pagingtableData = this.pagination(1, 8, this.tableData);
-
-        //进行数量和价格的汇总计算
-        this.tableData.forEach((element) => {
-          this.totalCount += element.count;
-          this.totalMoney = this.totalMoney + (element.price * element.count);
-        });
-
-      },
-      //删除单个商品
-      delSingleGoods(goods) {
-        this.tableData = this.tableData.filter(o => o.id != goods.id);
-        this.pagingtableData = this.tableData;
-        this.getAllMoney();
-      },
-      //删除所有商品
-      delAllGoods() {
-        this.tableData = [];
-        this.pagingtableData = this.tableData;
-        this.totalCount = 0;
-        this.totalMoney = 0;
-      },
-
-
-      //汇总数量和金额
-      getAllMoney() {
-        this.totalCount = 0;
-        this.totalMoney = 0;
-        if (this.tableData) {
-          this.tableData.forEach((element) => {
-            this.totalCount += element.count;
-            this.totalMoney = this.totalMoney + (element.price * element.count);
-          });
-        }
-
-      },
-
-      //结账
-      checkout() {
-        if (this.totalCount != 0) {
-          this.pagingtableData = [];
-          this.totalCount = 0;
-          this.totalMoney = 0;
-          this.$message({
-            message: '结账成功，感谢你又为店里出了一份力!',
-            type: 'success'
-          });
-
-        } else {
-          this.$message.error('不能空结。老板了解你急切的心情！');
-        }
-
-      },
-
-      //添加挂单
-      addCancelled() {
-        let b = this.a;
-        let arr = [];
-        let money = this.totalMoney;
-        arr = this.tableData;
-        if (money == 0) {
-          this.$message.error('不能空挂！');
-          return;
-        }
-        let json = {
-          order: b,
-          money: money,
-          details: arr
-        };
-        this.cancelled.push(json);
-        b++;
-        this.a = b;
-        this.tableData = [];
-        this.pagingtableData = this.tableData;
-        this.totalCount = 0;
-        this.totalMoney = 0;
-      },
-
-      //查看详情
-      checkDetails(goods) {
-        // let flag = false;
-        this.dialogTableVisible = true;
-        this.gridData = goods.details;
-      },
-
-      //删除单个挂单
-      delCancelled(goods) {
-        this.cancelled = this.cancelled.filter(o => o.order != goods.order);
-      },
-      //挂单结账
-      checkout1(goods) {
-        this.cancelled = this.cancelled.filter(o => o.order != goods.order);
-        this.$message({
-          message: '挂单结账成功，感谢你又为店里出了一份力!',
-          type: 'success'
-        });
-      },
-      //外卖查看详情
-      checkDetailsT(goods) {
-        // let flag = false;
-        this.dialogTableVisible = true;
-        this.gridData = goods.details;
-      },
-
-      //外卖删除单个挂单
-      delCancelledT(goods) {
-        this.takeOut = this.takeOut.filter(o => o.order != goods.order);
-      },
-      //外卖结账
-      checkout1T(goods) {
-        this.takeOut = this.takeOut.filter(o => o.order != goods.order);
-        this.$message({
-          message: '挂单结账成功，感谢你又为店里出了一份力!',
-          type: 'success'
-        });
-      },
-
     }
-  }
 </script>
 
 <style scoped>
-  .pos{
+  .pos {
     padding: 15px;
   }
+
   .block {
     text-align: right;
   }
@@ -418,22 +425,26 @@
     text-align: left;
   }
 
-  .often-goods-list{
+  .often-goods-list {
     display: flex;
     padding: 15px;
     border-left: 1px solid #f1f1f1;
   }
-  .often-goods-list-item{
+
+  .often-goods-list-item {
     padding: 10px 20px;
     border: 1px solid #f1f1f1;
     margin-right: 20px;
   }
-  .often-goods-list-item:hover{
+
+  .often-goods-list-item:hover {
     cursor: pointer;
   }
-  .often-goods-list-item:hover .goods_name{
+
+  .often-goods-list-item:hover .goods_name {
     color: #58b7ff;
   }
+
   .o-price {
     color: #58b7ff;
   }
