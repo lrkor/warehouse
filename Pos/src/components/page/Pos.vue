@@ -311,6 +311,7 @@
                         type:'0',
                         time:getNewTime(),
                         money:this.totalMoney,
+                        total:this.totalCount,
                         goodsData:this.pagingtableData
                     };
                     this.addOrder(data).then(res=>{

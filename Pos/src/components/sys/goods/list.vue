@@ -6,6 +6,9 @@
     <listTable
       :list="goodsList"
       :headerList="headerList"
+      :del="true"
+      :editor="true"
+      :detail="false"
       @editor="editor"
       @showDel="showDel"></listTable>
     <div class="paging">
@@ -87,7 +90,6 @@
                 this.centerDialogVisible = true;
                 this.id = row.id;
             },
-
             async del() {
                 let id = this.id;
                 this.centerDialogVisible = false;

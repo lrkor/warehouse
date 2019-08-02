@@ -25,6 +25,8 @@ const URL = {
   //订单
   order:{
     add: LOCALURL + 'order/add',  //新增订单
+    query: LOCALURL + 'order/query',  //查询订单
+    get: LOCALURL + 'order/get',  //查询订单详情
   },
 
   // 公用

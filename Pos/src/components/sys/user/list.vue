@@ -6,6 +6,9 @@
     <listTable
       :list="userList"
       :headerList="headerList"
+      :del="true"
+      :editor="true"
+      :detail="false"
       @editor="editor"
       @showDel="showDel"></listTable>
     <div class="paging">
@@ -46,7 +49,7 @@
             return {
                 userList: [],
                 headerList: [
-                    {prop: 'name', label: '姓名', width: '120'},
+                    {prop: 'name', label: '订单号', width: '120'},
                     {prop: 'userName', label: '用户名', width: '120'},
                     {prop: 'identity', label: '身份', width: '120'},
                 ],
@@ -61,7 +64,7 @@
         },
 
         methods: {
-            formatIdentity: function (val) {
+            formatIdentity(val) {
                 return val === '1' ? '管理员' : '游客'
             },
             async query() {
@@ -94,24 +97,7 @@
                     });
                     this.query();
                 }
-                // axios.post(url.userDelete, {
-                //     id: id,
-                // })
-                //     .then(response => {
-                //         let data = response.data;
-                //         if (data.code == '200') {
-                //             this.$message({
-                //                 message: '删除成功!',
-                //                 type: 'success'
-                //             });
-                //             this.query();
-                //         }
-                //     })
-                //     .catch(error => {
-                //         this.$message.error('网络错误');
-                //     });
             },
-
             editor(row) {
                 let id = row.id;
                 this.$router.push({
