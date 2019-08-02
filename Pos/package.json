@@ -10,10 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.1",
+    "qs": "^6.7.0",
     "vue": "^2.5.2",
+    "vue-axios": "^2.1.4",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
     "vue-schart": "^1.0.0",

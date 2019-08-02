@@ -7,7 +7,7 @@
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="商品价格：">
-          <el-input v-model="form.price"></el-input>
+          <el-input type="number" min="0" v-model="form.price"></el-input>
         </el-form-item>
         <el-form-item label="常用商品：">
           <el-select v-model="form.isOften" placeholder="请选择">

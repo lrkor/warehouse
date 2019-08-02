@@ -24,7 +24,7 @@
       <el-table type="border-card" :data="orderGoods">
         <el-table-column property="name" label="名称" width="150"></el-table-column>
         <el-table-column property="number" label="数量" width="200"></el-table-column>
-        <el-table-column property="price" label="金额"></el-table-column>
+        <el-table-column property="price" label="单价（元）"></el-table-column>
       </el-table>
     </el-dialog>
   </div>
@@ -74,7 +74,6 @@
             async get(orderId){
                 let res = await get(url.order.get, {orderId});
                 return res;
-
             },
 
             showDetail(row){

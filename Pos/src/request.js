@@ -4,7 +4,6 @@ import QS from 'qs'; // 引入qs模块，用来序列化post类型的数据，�
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.baseURL = '';
-
 /**
  * get方法，对应get请求
  * @param {String} url [请求的url地址]
@@ -15,6 +14,7 @@ export function get(url, params) {
     axios.get(url, {
       params: params
     }).then(res => {
+      console.log(res);
       resolve(res.data);
     }).catch(err => {
       reject(err.data)
