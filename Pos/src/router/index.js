@@ -22,6 +22,7 @@ import userList from '@/components/sys/user/list'
 import userAdd from '@/components/sys/user/add'
 import userUpdate from '@/components/sys/user/update'
 import orderList from '@/components/sys/order/list'
+import orderAnalyze from '@/components/sys/order/analyze'
 
 
 Vue.use(Router);
@@ -49,6 +50,7 @@ export default new Router({
         {path: 'user/add', name: 'userAdd', component: userAdd},
         {path: 'user/update/:id', name: 'userUpdate', component: userUpdate},
         {path: 'order/list', name: 'orderList', component: orderList},
+        {path: 'order/analyze', name: 'orderAnalyze', component: orderAnalyze},
       ]
     }
   ]

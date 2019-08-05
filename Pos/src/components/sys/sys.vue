@@ -46,6 +46,9 @@
               <el-menu-item index="/sys/order/list" route="">
                 订单列表
               </el-menu-item>
+              <el-menu-item index="/sys/order/analyze" route="">
+                订单分析
+              </el-menu-item>
             </el-submenu>
           </el-menu>
         </el-aside>
