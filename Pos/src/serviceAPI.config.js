@@ -1,36 +1,38 @@
-const LOCALURL = "http://localhost:3000/";
+const local = "http://localhost:3000/";
+const productionUrl = "http://148.70.186.231:3000/";  //线网
+const url = local;
 const URL = {
   //用户
   user:{
-    login: LOCALURL + 'user/login',  //用户登录接口
-    registered: LOCALURL + 'user/registered',  //用户注册接口
-    query: LOCALURL + 'user/query',  //用户列表
-    delete: LOCALURL + 'user/delete',  //用户删除
-    add: LOCALURL + 'user/add',  //用户新增
-    get: LOCALURL + 'user/get',  //查询用户信息
-    update: LOCALURL + 'user/update',  //更新用户信息
+    login: url + 'user/login',  //用户登录接口
+    registered: url + 'user/registered',  //用户注册接口
+    query: url + 'user/query',  //用户列表
+    delete: url + 'user/delete',  //用户删除
+    add: url + 'user/add',  //用户新增
+    get: url + 'user/get',  //查询用户信息
+    update: url + 'user/update',  //更新用户信息
   },
 
   //商品
   goods:{
-    oftenQuery: LOCALURL + 'goods/often/query',  //查询常用商品
-    menuQuery: LOCALURL + 'goods/menu/query',  //查询商品菜单内容
-    query: LOCALURL + 'goods/query',  //查询商品菜单内容
-    delete: LOCALURL + 'goods/delete',  //删除单个商品
-    get: LOCALURL + 'goods/get',  //查询单个商品
-    add: LOCALURL + 'goods/add',  // 新增商品
-    update: LOCALURL + 'goods/update',  // 更新商品
+    oftenQuery: url + 'goods/often/query',  //查询常用商品
+    menuQuery: url + 'goods/menu/query',  //查询商品菜单内容
+    query: url + 'goods/query',  //查询商品菜单内容
+    delete: url + 'goods/delete',  //删除单个商品
+    get: url + 'goods/get',  //查询单个商品
+    add: url + 'goods/add',  // 新增商品
+    update: url + 'goods/update',  // 更新商品
   },
 
   //订单
   order:{
-    add: LOCALURL + 'order/add',  //新增订单
-    query: LOCALURL + 'order/query',  //查询订单
-    get: LOCALURL + 'order/get',  //查询订单详情
+    add: url + 'order/add',  //新增订单
+    query: url + 'order/query',  //查询订单
+    get: url + 'order/get',  //查询订单详情
   },
 
   // 公用
-  upload: LOCALURL + 'upload/file',  // 文件上传
+  upload: url + 'upload/file',  // 文件上传
 
 };
 
