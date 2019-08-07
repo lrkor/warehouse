@@ -1,6 +1,6 @@
 const local = "http://localhost:3000/";
 const productionUrl = "http://148.70.186.231:3000/";  //线网
-const url = local;
+const url = productionUrl;
 const URL = {
   //用户
   user:{
