@@ -49,7 +49,7 @@
             return {
                 userList: [],
                 headerList: [
-                    {prop: 'name', label: '订单号', width: '120'},
+                    {prop: 'name', label: '姓名', width: '120'},
                     {prop: 'userName', label: '用户名', width: '120'},
                     {prop: 'identity', label: '身份', width: '120'},
                 ],
