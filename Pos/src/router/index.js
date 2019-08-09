@@ -28,8 +28,8 @@ import orderAnalyze from '@/components/sys/order/analyze'
 Vue.use(Router);
 
 export default new Router({
-  // mode: 'history',  //去掉url中的#
-  // base:'/dist',
+  mode: 'history',  //去掉url中的#
+  base:'/pos/',
   routes: [
     // {path: '*', component: NotFoundComponent},
     {path: '/', name: 'login', component: login},
