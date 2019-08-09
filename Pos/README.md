@@ -2,7 +2,7 @@
 
 ##这个项目是什么语言编写的：
 vue + elementUi + node + koa2
+nginx 部署
 
 ###线上地址
-http://148.70.186.231:3000/page/index.html
-
+http://148.70.186.231:3000/pos
