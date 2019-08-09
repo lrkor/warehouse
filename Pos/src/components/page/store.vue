@@ -6,7 +6,7 @@
       </div>
       <div class="head_right fr">
         <div class="img fl">
-          <img src="../../assets/img/touxiang.jpg" alt="头像">
+          <img src="" alt="头像">
         </div>
         <div class="maue fl">
           <el-dropdown size="medium" trigger="click">
@@ -87,76 +87,8 @@
               return{
                 totalMoney:0,
                 dialogTableVisible: false,
-                hanbao:[
-                  {
-                  foodId:1,
-                  foodImg:require('../../assets/img/1.jpg'),
-                  foodName:'测试1',
-                  price: 18
-                }
-                ],
-                jirou:[
-                  {
-                    foodId:2,
-                    foodImg:require('../../assets/img/2.jpg'),
-                    foodName:'测试2',
-                    price: 18
-                  },
-                ],
-                cole:[
-                  {
-                    foodId:3,
-                    foodImg:require('../../assets/img/3.jpg'),
-                    foodName:'测试3',
-                    price: 24
-                  },
-                ],
-                naicha:[
-                  {
-                    foodId:4,
-                    foodImg:require('../../assets/img/4.jpg'),
-                    foodName:'测试4',
-                    price: 18
-                  },
-                ],
-                xiaochi:[
-                  {
-                    foodId:5,
-                    foodImg:require('../../assets/img/5.jpg'),
-                    foodName:'测试5',
-                    price: 18
-                  },
-                ],
-                roulei:[
-                  {
-                    foodId:6,
-                    foodImg:require('../../assets/img/6.jpg'),
-                    foodName:'测试6',
-                    price: 18
-                  },
-                ],
                 foodList:[],
                 shippingArr:[],
-                urlArr:[
-                  {
-                    url:require('../../assets/img/1.jpg')
-                  },
-                  {
-                    url:require('../../assets/img/2.jpg')
-                  },
-                  {
-                    url:require('../../assets/img/3.jpg')
-                  },
-                  {
-                    url:require('../../assets/img/4.jpg')
-                  },
-                  {
-                    url:require('../../assets/img/5.jpg')
-                  },
-                  {
-                    url:require('../../assets/img/6.jpg')
-                  },
-                ],
                 menuData: [{
                   label: '主食',
                   children: [
