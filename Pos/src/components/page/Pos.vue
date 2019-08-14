@@ -92,7 +92,7 @@
                 </ul>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="小吃">
+            <el-tab-pane label="饮料">
               <div>
                 <ul class="cookList">
                   <li v-for="goods in type1Goods" @click="addOrderList(goods)">
@@ -106,8 +106,7 @@
               </div>
 
             </el-tab-pane>
-            <el-tab-pane label="饮品">
-
+            <el-tab-pane label="小食">
               <div>
                 <ul class="cookList">
                   <li v-for="goods in type2Goods" @click="addOrderList(goods)">

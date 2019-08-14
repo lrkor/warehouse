@@ -65,10 +65,10 @@
         },
         methods: {
             formatIsOften: function (value) {
-                return value == 1 ? '常用' : '不常用'
+                return value === '1' ? '常用' : '不常用'
             },
             formatType: function (value) {
-                return value === 0 ? '汉堡' : value === 1 ? '小吃' : value === 2 ? '饮品' : '套餐';
+                return value === '0' ? '汉堡' : value === '1' ? '小吃' : value === '2' ? '饮品' : '套餐';
             },
 
             async query() {
