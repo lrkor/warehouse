@@ -29,6 +29,8 @@ const URL = {
     add: url + 'order/add',  //新增订单
     query: url + 'order/query',  //查询订单
     get: url + 'order/get',  //查询订单详情
+    queryType: url + 'order/query/type',  //按类型查询订单数量
+    queryGoodType: url + 'order/query/good/type',  //按类型查询商品数量
   },
 
   // 公用

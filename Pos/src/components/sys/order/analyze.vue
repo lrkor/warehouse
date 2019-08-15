@@ -1,44 +1,69 @@
 <template>
   <div class="analyze">
-    <div class="order_type">
-      <schart class="pie" :canvasId="canvasId"
-              :type="type"
-              :width="width"
-              :height="height"
-              :data="data"
-              :options="options"
-      ></schart>
+    <div class="search">
+      <el-select v-model="value" placeholder="请选择" @change="search">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
     </div>
-    <div class="goods">
-      <schart class="bar" :canvasId="canvasId1"
-              :type="type1"
-              :width="width1"
-              :height="height1"
-              :data="data1"
-              :options="options1"
-      ></schart>
+    <div class="statistical">
+      <div class="order_type">
+        <schart class="pie" canvasId="typeMyCanvas"
+                type="pie"
+                width="600"
+                height="500"
+                :data="typeArr"
+                :options="typeOptions"
+        ></schart>
+      </div>
+      <div class="goods">
+        <schart class="bar" canvasId="speciesMyCanvas"
+                type="bar"
+                width="200"
+                height="800"
+                :data="speciesArr"
+                :options="speciesOptions"
+        ></schart>
+      </div>
     </div>
   </div>
+
 </template>
 
 <script>
     import Schart from 'vue-schart';
+    import url from '@/serviceAPI.config.js'
+    import {get, post} from '@/request.js'
+
     export default {
         name: "analyze",
-        components:{
-            Schart,
-        },
-        data(){
-            return{
-                canvasId: 'myCanvas',
-                type: 'pie',
-                width: 600,
-                height: 500,
-                data: [
-                    {name: '店铺订单', value: 356},
-                    {name: '外卖订单', value: 750},
+        components: {Schart},
+        data() {
+            return {
+                options: [
+                    {
+                        value: '0',
+                        label: '全部'
+                    }, {
+                        value: '1',
+                        label: '当天'
+                    }, {
+                        value: '2',
+                        label: '近7天'
+                    }, {
+                        value: '3',
+                        label: '近一个月'
+                    }],
+                value: '0',    //默认选中
+                typeArr: [
+                    {name: '店铺订单', value: 0},
+                    {name: '外卖订单', value: 0},
                 ],
-                options: {
+                typeOptions: {
                     autoWidth: true,
                     bgColor: '#FFFFFF',            // 默认背景颜色
                     title: '订单类型',// 图表标题
@@ -46,16 +71,10 @@
                     titlePosition: 'top',     // 图表标题位置: top / bottom
                     legendColor: '#000000',         // 图例文本颜色
                     legendTop: 40,               // 图例距离顶部的长度
-                    colorList: ['#1E9FFF','#13CE66'],   // 环形图颜色列表
+                    colorList: ['#1E9FFF', '#13CE66'],   // 环形图颜色列表
                     radius: 120,                     // 环形图外圆半径
                 },
-
-
-                canvasId1: 'myCanvas1',
-                type1: 'bar',
-                width1: 200,
-                height1: 800,
-                data1: [
+                speciesArr: [
                     {name: '汉堡', value: 526},
                     {name: '可乐', value: 421},
                     {name: '鸡翅', value: 356},
@@ -66,7 +85,7 @@
                     {name: '薯条', value: 777},
                     {name: '汉堡', value: 526},
                 ],
-                options1: {
+                speciesOptions: {
                     padding: 40,                   // canvas 内边距
                     bgColor: '#FFFFFF',            // 默认背景颜色
                     title: '商品类型',              // 图表标题
@@ -78,44 +97,29 @@
                     contentColor: '#eeeeee',       // 内容横线颜色
                     axisColor: '#666666',          // 坐标轴颜色
                 },
-
-
-                options2: [{
-                    value: '选项1',
-                    label: '当天'
-                }, {
-                    value: '选项2',
-                    label: '近三天'
-                }, {
-                    value: '选项3',
-                    label: '近一周'
-                }, {
-                    value: '选项4',
-                    label: '近一个月'
-                }],
-                value: '选项1'    //默认选中
             }
         },
-        mounted:function () {
-            document.getElementById('goodsStatistical').style.color = '#32ff7b';
+        created() {
+            this.queryType(0);
+            this.queryGoodType(0);
         },
-        methods:{
-            currentSel:function () {
-                console.log(this.value);
-                if(this.value=='选项1'){
-                    this.data=[{name: '店铺订单', value: 356}, {name: '外卖订单', value: 750},];
-                    this.data1=[{name: '汉堡', value: 526}, {name: '可乐', value: 421}, {name: '鸡翅', value: 356}, {name: '薯条', value: 777}]
-                }else if(this.value=='选项2'){
-                    this.data=[{name: '店铺订单', value: 400}, {name: '外卖订单', value: 789},];
-                    this.data1=[{name: '汉堡', value: 500}, {name: '可乐', value: 456}, {name: '鸡翅', value: 356},{name: '薯条', value: 777}]
-                }else if(this.value=='选项3'){
-                    this.data=[{name: '店铺订单', value: 777}, {name: '外卖订单', value: 978},];
-                    this.data1=[{name: '汉堡', value: 999}, {name: '可乐', value: 333}, {name: '鸡翅', value: 356},{name: '薯条', value: 777}]
-                }else if(this.value=='选项4'){
-                    this.data=[{name: '店铺订单', value: 452}, {name: '外卖订单', value: 888},];
-                    this.data1=[{name: '汉堡', value: 666}, {name: '可乐', value: 555}, {name: '鸡翅', value: 356},{name: '薯条', value: 777}]
-                }
-            }
+        methods: {
+            //按订单类型查询订单
+            async queryType(type) {
+                let res = await get(url.order.queryType, {type});
+                this.typeArr = res.data;
+            },
+
+            //按订单类型查询订单
+            async queryGoodType(type) {
+                let res = await get(url.order.queryGoodType, {type});
+                this.speciesArr = res.data;
+            },
+
+            search(val) {
+                this.queryType(val);
+                this.queryGoodType(val);
+            },
         }
     }
 </script>
@@ -123,12 +127,24 @@
 <style scoped>
   .analyze {
     background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
   }
-  .pie{
+
+  .statistical {
+    display: flex;
+  }
+
+  .search {
+    margin-bottom: 20px;
+  }
+
+  .pie {
     width: 500px;
     height: 400px;
   }
-  .bar{
+
+  .bar {
     width: 700px;
     height: 400px;
   }

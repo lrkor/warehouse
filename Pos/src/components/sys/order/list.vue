@@ -46,7 +46,7 @@
                     {prop: 'type', label: '订单类型', width: '120'},
                     {prop: 'time', label: '下单时间', width: '200'},
                     {prop: 'total', label: '商品总数', width: '120'},
-                    {prop: 'money', label: '商品总价（元）', width: '120'},
+                    {prop: 'money', label: '商品总价（元）', width: '150'},
                 ],
                 centerDialogVisible: false,
                 page: 1,
