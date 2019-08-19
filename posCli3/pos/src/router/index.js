@@ -16,6 +16,6 @@ let routesList = [
 routesList.push(pages,sysList);
 export default new Router({
     mode: 'history',
-    // base:'/pos/',
+    base:'/pos/',
     routes: routesList,
 })

@@ -94,9 +94,7 @@
                   type: 'success'
                 });
                 if(data.data.identity==1){
-                  this.$router.push({path: 'Pos'});
-                }else {
-                  this.$router.push({path: 'store'});
+                  this.$router.push({path: '/store'});
                 }
               } else {
                 this.$message({

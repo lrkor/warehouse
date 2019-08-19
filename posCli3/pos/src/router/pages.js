@@ -1,9 +1,9 @@
-const pos = () => import ('@/views/pages/pos.vue');
+const store = () => import ('@/views/pages/store.vue');
 
 const pages =
     {
-        path: '/pos',
-        component: pos,
-        name: 'pos'
+        path: '/store',
+        component: store,
+        name: 'store'
     };
 export default pages;
