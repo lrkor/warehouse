@@ -43,14 +43,14 @@ export default new Router({
     {
       path: '/sys', name: 'sys', component: sys,
       children:[
-        {path: 'goods/list', name: 'goodsList', component: goodsList},
-        {path: 'goods/add', name: 'goodsAdd', component: goodsAdd},
-        {path: 'goods/update/:id', name: 'goodsUpdate', component: goodsUpdate},
-        {path: 'user/list', name: 'userList', component: userList},
-        {path: 'user/add', name: 'userAdd', component: userAdd},
-        {path: 'user/update/:id', name: 'userUpdate', component: userUpdate},
-        {path: 'order/list', name: 'orderList', component: orderList},
-        {path: 'order/analyze', name: 'orderAnalyze', component: orderAnalyze},
+        {path: '/sys/goods/list', name: 'goodsList', component: goodsList},
+        {path: '/sys/goods/add', name: 'goodsAdd', component: goodsAdd},
+        {path: '/sys/goods/update/:id', name: 'goodsUpdate', component: goodsUpdate},
+        {path: '/sys/user/list', name: 'userList', component: userList},
+        {path: '/sys/user/add', name: 'userAdd', component: userAdd},
+        {path: '/sys/user/update/:id', name: 'userUpdate', component: userUpdate},
+        {path: '/sys/order/list', name: 'orderList', component: orderList},
+        {path: '/sys/order/analyze', name: 'orderAnalyze', component: orderAnalyze},
       ]
     }
   ]
