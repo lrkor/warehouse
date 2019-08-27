@@ -1,5 +1,7 @@
 # pos
 
+# 技术栈vue全家桶
+
 ## Project setup
 ```
 npm install
