@@ -14,7 +14,7 @@
                 </van-sidebar>
             </div>
             <div class="goods_list">
-                <div class="goods_item" v-for="(item,index) in [0,1,2,3,4,5,6,9,5,8]" :key="index">
+                <div class="goods_item" v-for="(item,index) in [0,1,2,3,4]" :key="index">
                     <div class="item_left"><img src="../../assets/img/st.jpg" alt=""></div>
                     <div class="item_right">
                         <div class="item_right_top">汉堡</div>
@@ -45,14 +45,9 @@
 
         },
         mounted() {
-            // let height = document.body.clientHeight;
-            // document.getElementsByClassName('main')[0].style.height = (height-50) + 'px';
-            console.log(document.getElementsByClassName('shopping')[0].offsetHeight );
-            console.log(document.getElementsByClassName('title')[0].offsetHeight);
-            let shoppingHeight = document.getElementsByClassName('shopping')[0].offsetHeight;
+            let height = document.body.clientHeight;
             let titleHeight = document.getElementsByClassName('title')[0].offsetHeight;
-            document.getElementsByClassName('goods_list')[0].style.height = (shoppingHeight-titleHeight) + 'px';
-
+            document.getElementsByClassName('goods')[0].style.height = (height-titleHeight-50) + 'px';
         }
 
     }

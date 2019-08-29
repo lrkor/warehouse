@@ -1,5 +1,6 @@
 <template>
     <div class="order">
+        <div class="title"><i>历史订单</i></div>
         <van-list
                 v-model="loading"
                 :finished="finished"
@@ -18,6 +19,9 @@
                     <div class="information">
                         <div class="time">2019-08-15 17:15:15</div>
                         <div class="information_right">￥60</div>
+                    </div>
+                    <div class="evaluation">
+                        <van-button type="primary" round color="#409EFF" size="mini">评价</van-button>
                     </div>
                 </div>
             </div>
@@ -52,6 +56,11 @@
                     }
                 }, 500);
             }
+        },
+        mounted() {
+            let orderHeight = document.getElementsByClassName('order')[0].offsetHeight;
+            let titleHeight = document.getElementsByClassName('title')[0].offsetHeight;
+            document.getElementsByClassName('van-list')[0].style.height = (orderHeight-titleHeight) + 'px';
         }
     }
 </script>
@@ -59,11 +68,24 @@
 <style scoped>
     .order{
         height: 100%;
-        background-color: #f1f1f1   ;
+    }
+    .title{
+        font-size: 18px;
+        padding: 10px 15px;
+        font-weight: bold;
+        border-bottom: 1px solid #eeeeee;
     }
     .order_item{
         display: flex;
         background-color: #fff;
+        /*margin-top: 10px;*/
+        padding: 10px 15px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #eee;
+    }
+    .item_left{
+        display: flex;
+        align-items: center;
     }
     .item_left img{
         width: 3rem;
@@ -93,15 +115,12 @@
         font-size: 16px;
         display: flex;
         justify-content: space-between;
+        margin-top: 10px;
     }
-    .information_left{
-        width: 10rem;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+    .evaluation{
+        text-align: right;
     }
     .van-list{
-        height: 100%;
         overflow-y: scroll;
         box-sizing: border-box;
     }
