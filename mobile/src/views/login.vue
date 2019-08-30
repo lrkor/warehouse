@@ -33,7 +33,6 @@
         },
         methods:{
             login(){
-                // this.$router.push({path: '/index'});
                 let userName = this.userName;
                 let password = this.password;
                 let type = 0;
@@ -44,7 +43,13 @@
                     return
                 }
                 this.toLogin({userName,password,type}).then(res=>{
-                    console.log(res);
+                    if(res.code==='200'){
+                        this.$router.push({path: '/index'});
+                    }else {
+                        this.$dialog.alert({
+                            message: res.message
+                        });
+                    }
                 })
             },
 
