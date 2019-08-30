@@ -109,40 +109,39 @@
             //提交订单
             onSubmit() {
                 let arr = [...this.type0Goods, ...this.type1Goods, ...this.type2Goods, ...this.type3Goods];
-                let newArr = [];
                 arr = arr.filter(item => {
-                    return item.count>0;
+                    return item.count > 0;
                 });
-                if(this.total===0){
+                if (this.total === 0) {
                     this.$toast('请选择商品');
-                }else {
-                    let data = {
-                        type: '1',
-                        time: getNewTime(),
-                        money: this.money/100,
-                        total: this.total,
-                        goodsData: arr
-                    };
-                    this.addOrder(data).then(res => {
-                        if (res.code === '200') {
-                            this.total = 0;
-                            this.money = 0;
-                            this.type0Goods.filter(item=>{
-                                item.count = 0;
-                            });
-                            this.type1Goods.filter(item=>{
-                                item.count = 0;
-                            });
-                            this.type2Goods.filter(item=>{
-                                item.count = 0;
-                            });
-                            this.type3Goods.filter(item=>{
-                                item.count = 0;
-                            });
-                            this.$toast('结账成功');
-                        }
-                    });
+                    return
                 }
+                let data = {
+                    type: '1',
+                    time: getNewTime(),
+                    money: this.money / 100,
+                    total: this.total,
+                    goodsData: arr
+                };
+                this.addOrder(data).then(res => {
+                    if (res.code === '200') {
+                        this.total = 0;
+                        this.money = 0;
+                        this.type0Goods.filter(item => {
+                            item.count = 0;
+                        });
+                        this.type1Goods.filter(item => {
+                            item.count = 0;
+                        });
+                        this.type2Goods.filter(item => {
+                            item.count = 0;
+                        });
+                        this.type3Goods.filter(item => {
+                            item.count = 0;
+                        });
+                        this.$toast('结账成功');
+                    }
+                });
             },
             //新增订单
             async addOrder(data) {

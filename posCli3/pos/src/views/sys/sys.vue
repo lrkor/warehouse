@@ -6,6 +6,7 @@
           后台管理
         </div>
         <div class="header_right">
+          <el-button type="info" @click="exit">退出</el-button>
         </div>
       </el-header>
       <el-container>
@@ -72,6 +73,9 @@
     methods: {
       goList: function (path) {
         this.$router.push({path: path});
+      },
+      exit(){
+        this.$router.push({path: '/'});
       }
     }
   }
@@ -80,6 +84,10 @@
 <style scoped>
   div {
     height: 100%;
+  }
+  .header_right{
+    display: flex;
+    align-items: center;
   }
 
   .phone{

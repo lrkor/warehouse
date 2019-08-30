@@ -21,6 +21,8 @@
 </template>
 
 <script>
+    import url from '@/api/serviceAPI.config.js'
+    import {post} from '@/server/request.js'
     export default {
         name: "login",
         data(){
@@ -31,7 +33,19 @@
         },
         methods:{
             login(){
-                this.$router.push({path: '/index'});
+                // this.$router.push({path: '/index'});
+                let userName = this.userName;
+                let password = this.password;
+                let type = 0;
+                if(userName==='' || password===''){
+                    this.$dialog.alert({
+                        message: '账号或密码不能为空'
+                    });
+                    return
+                }
+                this.toLogin({userName,password,type}).then(res=>{
+                    console.log(res);
+                })
             },
 
             //用户注册
@@ -42,6 +56,12 @@
             //忘记密码
             forget(){
                 this.$toast('暂未开放');
+            },
+
+            //登录接口
+            async toLogin(data){
+                let res = await post(url.user.login,data);
+                return res
             },
         }
     }

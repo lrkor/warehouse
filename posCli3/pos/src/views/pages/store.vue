@@ -1,5 +1,8 @@
 <template>
     <div class="pos">
+        <div class="exit">
+            <el-button type="danger" @click="exit">退出</el-button>
+        </div>
         <el-row :gutter="20">
             <el-col :span="8" class="pos-order" id="order-list">
                 <el-tabs type="border-card">
@@ -204,6 +207,11 @@
             this.getMenuQuery();
         },
         methods: {
+            //退出
+            exit(){
+                this.$router.push({path: '/'});
+            },
+
             //获取常用商品
             async getOftenGoods() {
                 let res = await post(url.goods.oftenQuery);
@@ -408,6 +416,10 @@
 <style scoped>
     .pos {
         padding: 15px;
+    }
+    .exit{
+        text-align: right;
+        margin-bottom: 20px;
     }
 
     .block {

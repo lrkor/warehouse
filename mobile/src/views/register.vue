@@ -38,7 +38,9 @@
                     });
                 }else {
                     this.registered({userName,password}).then(res=>{
-                        console.log(res);
+                        if(res.code==='200'){
+                            this.$router.go(-1);
+                        }
                     })
                 }
             },

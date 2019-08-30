@@ -39,7 +39,7 @@ router.post('/login', async (ctx) => {
         code: '200',
         status: 'success',
         message: '登录成功',
-        data:{identity:data[0].identity}
+        data:data[0]
       }
     }
   } else {
@@ -61,7 +61,7 @@ router.post('/registered', async (ctx) => {
   let json = {};
   let data = await query(sqlString);
   if(data.length==0){
-    let sqlAdd = `INSERT INTO user (user_name,password) VALUES ('${userName}','${password}')`;
+    let sqlAdd = `INSERT INTO user (user_name,password,identity) VALUES ('${userName}','${password}','0')`;
     let data1 = await query(sqlAdd);
     json = {
       code: '200',
