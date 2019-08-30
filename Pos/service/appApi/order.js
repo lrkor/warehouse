@@ -3,7 +3,8 @@ let router = new Router();
 
 //字段映射
 let keyMap = {
-  "order_id": "orderId"
+  "order_id": "orderId",
+  "user_id":"userId"
 };
 
 //引入数据库
@@ -17,8 +18,13 @@ const {statistical} = require('../tool/statistical.js');
 router.post('/add', async (ctx) => {
   let obj = ctx.request.body.data;
   let goodsData = obj.goodsData;
+  let userId = 1;
+  if(obj.userId){
+    userId = obj.userId;
+  }
+
   let id = createId();
-  let sqlString = `INSERT INTO orders (id,type, time, total ,money,date) VALUES ('${id}','${obj.type}','${obj.time}',${obj.total},${obj.money},'${obj.time}')`;
+  let sqlString = `INSERT INTO orders (id,type, time, total ,money,date,user_id) VALUES ('${id}','${obj.type}','${obj.time}',${obj.total},${obj.money},'${obj.time}',${userId})`;
   for (let i = 0; i < goodsData.length; i++) {
     let sqlString1 = `INSERT INTO order_goods (order_id, name, number,price,date) VALUES ('${id}','${goodsData[i].name}',${goodsData[i].count},${goodsData[i].price},'${obj.time}')`;
     let data1 = await query(sqlString1);

@@ -21,16 +21,22 @@
 </template>
 
 <script>
+    // import store from '@/vuex/store';
+    // import {mapState} from 'vuex';
     import url from '@/api/serviceAPI.config.js'
     import {post} from '@/server/request.js'
     export default {
         name: "login",
+        // store,
         data(){
             return{
                 userName:'',
                 password:''
             }
         },
+        // computed:{
+        //     ...mapState(['userInfo'])
+        // },
         methods:{
             login(){
                 let userName = this.userName;
@@ -44,6 +50,8 @@
                 }
                 this.toLogin({userName,password,type}).then(res=>{
                     if(res.code==='200'){
+                        // this.$store.commit('assignment',res.data);
+                        localStorage.setItem('userInfo',JSON.stringify(res.data));
                         this.$router.push({path: '/index'});
                     }else {
                         this.$dialog.alert({

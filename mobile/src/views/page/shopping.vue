@@ -36,10 +36,13 @@
     import url from '@/api/serviceAPI.config.js'
     import {post} from '@/server/request.js'
     import {getNewTime} from '@/utils/time.js'
+    // import store from '@/vuex/store';
+    // import {mapState} from 'vuex';
 
     export default {
         components: {goodList},
         name: "shopping",
+        // store,
         data() {
             return {
                 activeKey: 0,
@@ -51,12 +54,16 @@
                 type1Goods: [],
                 type2Goods: [],
                 type3Goods: [],
+                userInfo:{}
             };
         },
+        // computed:{
+        //     ...mapState(['userInfo'])
+        // },
         created() {
             //获取常用商品
             // this.getOftenGoods();
-
+            this.userInfo =JSON.parse(localStorage.getItem('userInfo'));
             //获取商品菜单内容
             this.getMenuQuery();
         },
@@ -118,6 +125,7 @@
                 }
                 let data = {
                     type: '1',
+                    userId:this.userInfo.id,
                     time: getNewTime(),
                     money: this.money / 100,
                     total: this.total,
