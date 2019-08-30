@@ -48,7 +48,7 @@
 
 <script>
   import url from '@/api/serviceAPI.config.js'
-  import {post} from '@/server/request.js'
+  import {post,get} from '@/server/request.js'
 
     export default {
         name: "update",

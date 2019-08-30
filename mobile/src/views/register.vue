@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <div class="title">Welcome</div>
+        <div class="title">欢迎注册</div>
         <div class="from_body">
             <div class="user_name">
                 <input type="text" placeholder="账号" v-model="userName">
@@ -10,19 +10,18 @@
             </div>
             <div class="btn_father">
                 <div class="btn">
-                    <van-button color="#56b3f6" type="primary" round size="large" @click="login">立即登录</van-button>
+                    <van-button color="#56b3f6" type="primary" round size="large" @click="register">立即注册</van-button>
                 </div>
-            </div>
-            <div class="footer">
-                <div class="forget" @click="forget">忘记密码？</div>|<div class="register" @click="register">立即注册</div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import url from '@/api/serviceAPI.config.js'
+    import {post} from '@/server/request.js'
     export default {
-        name: "login",
+        name: "register",
         data(){
             return{
                 userName:'',
@@ -30,18 +29,24 @@
             }
         },
         methods:{
-            login(){
-                this.$router.push({path: '/index'});
-            },
-
-            //用户注册
             register(){
-                this.$router.push({path: '/register'});
+                let userName = this.userName;
+                let password = this.password;
+                if(userName==='' || password===''){
+                    this.$dialog.alert({
+                        message: '账号或密码不能为空'
+                    });
+                }else {
+                    this.registered({userName,password}).then(res=>{
+                        console.log(res);
+                    })
+                }
             },
 
-            //忘记密码
-            forget(){
-                this.$toast('暂未开放');
+            //注册接口
+            async registered(data){
+                let res = await post(url.user.registered, data);
+                return res;
             },
         }
     }
