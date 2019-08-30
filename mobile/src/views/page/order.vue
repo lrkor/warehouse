@@ -30,6 +30,8 @@
 </template>
 
 <script>
+    import url from '@/api/serviceAPI.config.js'
+    import {post} from '@/server/request.js'
     export default {
         name: "order",
         data() {
@@ -38,24 +40,25 @@
                 loading: false,
                 finished: false,
                 error: false,
+                page:1
             };
+        },
+        created() {
+            this.query();
         },
         methods:{
             onLoad() {
-                // 异步更新数据
-                setTimeout(() => {
-                    for (let i = 0; i < 10; i++) {
-                        this.list.push(this.list.length + 1);
-                    }
-                    // 加载状态结束
-                    this.loading = false;
-
-                    // 数据全部加载完成
-                    if (this.list.length >= 40) {
-                        this.finished = true;
-                    }
-                }, 500);
-            }
+                if (this.page != 1) {
+                    this.query();
+                }
+            },
+            //获取列表
+            async query(){
+                let res = await post(url.order.query, {page: this.page, size: 10});
+                if(res.code==='200'){
+                    this.orderList = res.data;
+                }
+            },
         },
         mounted() {
             let orderHeight = document.getElementsByClassName('order')[0].offsetHeight;

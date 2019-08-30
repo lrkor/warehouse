@@ -43,6 +43,7 @@ router.post('/add', async (ctx) => {
 router.post('/query', async (ctx) => {
   let page = ctx.request.body.page;
   let size = ctx.request.body.size;
+  let userId = ctx.request.body.userId;
   let sqlStringTotal = `SELECT * FROM orders`;
   let dataTotal = await query(sqlStringTotal);
 
