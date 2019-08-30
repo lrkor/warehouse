@@ -44,10 +44,14 @@ router.post('/query', async (ctx) => {
   let page = ctx.request.body.page;
   let size = ctx.request.body.size;
   let userId = ctx.request.body.userId;
-  let sqlStringTotal = `SELECT * FROM orders`;
+  let userIdSql = '';
+  if(userId){
+    userIdSql= 'and user_id='+userId;
+  }
+  let sqlStringTotal = `SELECT * FROM orders WHERE 1=1 ${userIdSql}`;
   let dataTotal = await query(sqlStringTotal);
-
-  let sqlString = `SELECT * FROM orders limit ${(page - 1) * size},${size}`;
+  console.log(sqlStringTotal);
+  let sqlString = `SELECT * FROM orders WHERE 1=1 ${userIdSql} limit ${(page - 1) * size},${size}`;
   let data = await query(sqlString);
   let json = {
     code: '200',

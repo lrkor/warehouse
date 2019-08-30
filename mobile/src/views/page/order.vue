@@ -1,31 +1,36 @@
 <template>
     <div class="order">
         <div class="title"><i>历史订单</i></div>
-        <van-list
-                v-model="loading"
-                :finished="finished"
-                finished-text="没有更多了"
-                @load="onLoad"
-        >
-            <div class="order_item"
-                    v-for="item in list"
-                    :key="item"
+        <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+            <van-list
+                    v-model="loading"
+                    :finished="finished"
+                    finished-text="没有更多了"
+                    :immediate-check="false"
+                    :offset="20"
+                    @load="onLoad"
             >
-                <div class="item_left">
-                    <img src="../../assets/img/pages/order_title.png" alt="">
-                </div>
-                <div class="item_right">
-                    <div class="name">自家店 <van-icon name="arrow" /></div>
-                    <div class="information">
-                        <div class="time">2019-08-15 17:15:15</div>
-                        <div class="information_right">￥60</div>
+                <div class="order_item"
+                     v-for="(item,index) in list"
+                     :key="index"
+                >
+                    <div class="item_left">
+                        <img src="../../assets/img/pages/order_title.png" alt="">
                     </div>
-                    <div class="evaluation">
-                        <van-button type="primary" round color="#409EFF" size="mini">评价</van-button>
+                    <div class="item_right">
+                        <div class="name">自家店 <van-icon name="arrow" /></div>
+                        <div class="information">
+                            <div class="time">{{item.time}}</div>
+                            <div class="information_right">{{item.money}}￥</div>
+                        </div>
+                        <div class="evaluation">
+                            <van-button type="primary" round color="#409EFF" size="mini">评价</van-button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </van-list>
+            </van-list>
+        </van-pull-refresh>
+
     </div>
 </template>
 
@@ -40,24 +45,52 @@
                 loading: false,
                 finished: false,
                 error: false,
-                page:1
+                isLoading: false,
+                page:1,
+                userInfo:{}
             };
         },
         created() {
-            this.query();
+            this.userInfo =JSON.parse(localStorage.getItem('userInfo'));
+            let userId = this.userInfo.id;
+            this.query(userId).then(res=>{
+
+            });
         },
         methods:{
             onLoad() {
-                if (this.page != 1) {
-                    this.query();
+                let userId = this.userInfo.id;
+                if (this.page !== 1) {
+                    this.query(userId);
                 }
             },
+
+            //下拉刷新
+            onRefresh() {
+                let userId = this.userInfo.id;
+                this.page = 1;
+                this.query(userId).then(res=>{
+                    if (res.code==='200'){
+                        this.list = res.data;
+                        this.$toast('刷新成功');
+                        this.isLoading = false;
+                    }
+                });
+            },
             //获取列表
-            async query(){
-                let res = await post(url.order.query, {page: this.page, size: 10});
+            async query(userId){
+                let res = await post(url.order.query, {page: this.page, size: 10,userId:userId});
                 if(res.code==='200'){
-                    this.orderList = res.data;
+                    this.list = [...this.list,...res.data];
+                    if(res.data.length<res.total&&res.data.length===10){
+                        this.page++;
+                        this.loading = false;
+                    }else {
+                        this.loading = false;
+                        this.finished = true;
+                    }
                 }
+                return res;
             },
         },
         mounted() {
