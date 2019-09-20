@@ -50,7 +50,7 @@
                 this.$router.go(-1);
             },
             async onSubmit() {
-                let res = await post(url.user.add, {data: this.form});
+                let res = await post(url.user.add, this.form);
                 if (res.code == '200') {
                     this.$message({
                         message: '添加成功!',

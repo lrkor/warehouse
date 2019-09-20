@@ -1,6 +1,7 @@
 const local = "http://localhost:3000/";
 const productionUrl = "http://148.70.186.231:3000/";  //线网
-const url = productionUrl;
+const javaUrl = "http:///127.0.0.1:8083/";  //线网
+const url = local;
 const URL = {
   //用户
   user:{
@@ -8,7 +9,7 @@ const URL = {
     registered: url + 'user/registered',  //用户注册接口
     query: url + 'user/query',  //用户列表
     delete: url + 'user/delete',  //用户删除
-    add: url + 'user/add',  //用户新增
+    add: javaUrl + 'user/add',  //用户新增
     get: url + 'user/get',  //查询用户信息
     update: url + 'user/update',  //更新用户信息
   },
