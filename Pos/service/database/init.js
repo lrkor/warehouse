@@ -4,7 +4,7 @@ const proHost = '148.70.186.231';
 const pool = mysql.createPool({
   host     :  proHost,
   user     :  'root',
-  password :  'bin123..',
+  password :  'xuwenbin123..!',
   database :  'database'
 });
 
