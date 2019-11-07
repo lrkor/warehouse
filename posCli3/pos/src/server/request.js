@@ -1,9 +1,14 @@
 import axios from 'axios';
 import QS from 'qs'; // 引入qs模块，用来序列化post类型的数据，后面会提到
 
+// let token = localStorage.getItem('token');
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+// axios.defaults.headers.common['token'] = token;
 axios.defaults.baseURL = '';
+
+
+
 /**
  * get方法，对应get请求
  * @param {String} url [请求的url地址]
