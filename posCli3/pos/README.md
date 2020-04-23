@@ -25,6 +25,7 @@ npm run test
 ### Lints and fixes files
 ```
 npm run lint
+测试
 ```
 
 ### Customize configuration
